@@ -20,7 +20,7 @@ namespace RPGM.Gameplay
 
         new Rigidbody2D rigidbody2D;
         SpriteRenderer spriteRenderer;
-        PixelPerfectCamera pixelPerfectCamera;
+        UnityEngine.Experimental.Rendering.Universal.PixelPerfectCamera pixelPerfectCamera;
 
         enum State
         {
@@ -90,7 +90,7 @@ namespace RPGM.Gameplay
         {
             rigidbody2D = GetComponent<Rigidbody2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();
-            pixelPerfectCamera = GameObject.FindObjectOfType<PixelPerfectCamera>();
+            pixelPerfectCamera = GameObject.FindObjectOfType<UnityEngine.Experimental.Rendering.Universal.PixelPerfectCamera>();
         }
     }
 }

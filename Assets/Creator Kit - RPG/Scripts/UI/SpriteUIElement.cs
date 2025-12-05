@@ -21,7 +21,7 @@ namespace RPGM.UI
         public float animationDuration = 0.5f;
 
         SpriteRenderer spriteRenderer;
-        PixelPerfectCamera pixelPerfectCamera;
+        UnityEngine.Experimental.Rendering.Universal.PixelPerfectCamera pixelPerfectCamera;
         Vector2 animationOffset;
 
         float t = 0;
@@ -49,7 +49,7 @@ namespace RPGM.UI
             spriteRenderer = GetComponent<SpriteRenderer>();
 
             if (Application.isPlaying)
-                pixelPerfectCamera = camera.GetComponent<PixelPerfectCamera>();
+                pixelPerfectCamera = camera.GetComponent<UnityEngine.Experimental.Rendering.Universal.PixelPerfectCamera>();
             anchor.x = Mathf.Round(anchor.x * pixelsPerUnit) / pixelsPerUnit;
             anchor.y = Mathf.Round(anchor.y * pixelsPerUnit) / pixelsPerUnit;
         }
