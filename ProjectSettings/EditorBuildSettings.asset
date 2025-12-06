@@ -5,7 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Creator Kit - RPG/Scenes/BlankScene 1.unity
-    guid: 30839d5427b684a809b3f13fa94e3b0c
+    path: Assets/Creator Kit - RPG/Scenes/SampleScene.unity
+    guid: 2ea7383a0a8af431080e0aa251ee7115
+  - enabled: 1
+    path: Assets/Ada/EscenaPuzleBloques.unity
+    guid: f052fef186bf57e4ebc50e051557a109
+  - enabled: 1
+    path: Assets/Ada/EscenaPuzleEspejos.unity
+    guid: 9b899e60e446576459b32811e2f95638
   m_configObjects: {}

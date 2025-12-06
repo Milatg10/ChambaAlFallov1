@@ -33,6 +33,7 @@ public class InteraccionBuzon : MonoBehaviour
     // Detecta cuando el jugador entra en el área del Trigger
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("Algo tocó el buzón: " + other.name);
         if (other.CompareTag("Player") && !puzleYaResuelto)
         {
             jugadorCerca = true;
@@ -43,6 +44,7 @@ public class InteraccionBuzon : MonoBehaviour
     // Detecta cuando el jugador sale del área del Trigger
     private void OnTriggerExit2D(Collider2D other)
     {
+
         if (other.CompareTag("Player"))
         {
             jugadorCerca = false;
@@ -53,7 +55,6 @@ public class InteraccionBuzon : MonoBehaviour
     private void EntrarAlPuzle()
     {
         Debug.Log("Cargando Puzle 1...");
-        // Importante: Debes haber añadido la escena en File -> Build Settings
         SceneManager.LoadScene(nombreEscenaPuzle1);
     }
 }
