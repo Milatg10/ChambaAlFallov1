@@ -5,24 +5,32 @@ using UnityEngine;
 public class BugVida : MonoBehaviour
 {
     public int vida = 3;
-    private Animator miAnimator; // Para controlar las animaciones
-    private bool estaMuerto = false; // Para que no le puedas pegar mientras muere
+    public float daño = 10f; // Cuánto quita al tocar
+
+    private Animator miAnimator;
+    private bool estaMuerto = false;
+    private Color colorOriginal; // Aquí guardaremos si es verde, amarillo, etc.
 
     void Start()
     {
         miAnimator = GetComponent<Animator>();
+        colorOriginal = GetComponent<SpriteRenderer>().color;
     }
 
+    // Para recibir daño de las balas (Trigger)
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (estaMuerto) return; // Si ya está muriendo, ignorar golpes
+        if (estaMuerto) return;
 
-        if (collision.CompareTag("Player") || collision.CompareTag("Weapon"))
+        if (collision.CompareTag("Weapon"))
         {
             RecibirDañoPublico();
+            // Destruimos la bala para que no atraviese
+            Destroy(collision.gameObject);
         }
     }
 
+    // Para probar con clic
     private void OnMouseDown()
     {
         if (estaMuerto) return;
@@ -32,10 +40,8 @@ public class BugVida : MonoBehaviour
     public void RecibirDañoPublico()
     {
         vida--;
-        
-        // Opcional: Efecto de color rojo momentáneo
         GetComponent<SpriteRenderer>().color = Color.red;
-        Invoke("RestaurarColor", 0.1f); // Vuelve al color normal en 0.1s
+        Invoke("RestaurarColor", 0.1f);
 
         if (vida <= 0)
         {
@@ -45,29 +51,21 @@ public class BugVida : MonoBehaviour
 
     void RestaurarColor()
     {
-        if(!estaMuerto) GetComponent<SpriteRenderer>().color = Color.white; 
+        if(!estaMuerto) GetComponent<SpriteRenderer>().color = colorOriginal;
     }
 
     IEnumerator MorirConEstilo()
     {
         estaMuerto = true;
-        
-        // 1. Decirle al Animator que ponga la animación de muerte
-        // Asegúrate de que escribiste el nombre EXACTO "Slime_Die" al crear el clip
         miAnimator.Play("Bug_die");
 
-        // 2. Desactivar el movimiento para que no te persiga mientras muere
-        // Intentamos buscar el script de movimiento y apagarlo
         var movimiento = GetComponent<BugMovimiento>();
         if (movimiento != null) movimiento.enabled = false;
 
-        // 3. Quitar el collider para que no puedas chocar con el cadáver
         GetComponent<Collider2D>().enabled = false;
+        GetComponent<Rigidbody2D>().simulated = false; // Para que no estorbe
 
-        // 4. Esperar lo que dura la animación (aprox 0.5 o 1 segundo)
         yield return new WaitForSeconds(0.8f);
-
-        // 5. Adiós mundo
         Destroy(gameObject);
     }
 }

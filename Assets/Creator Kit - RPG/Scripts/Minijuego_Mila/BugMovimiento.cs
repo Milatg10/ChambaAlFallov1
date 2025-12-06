@@ -19,7 +19,7 @@ public class BugMovimiento : MonoBehaviour
         // Si se nos olvida poner el objetivo manual, el script busca al objeto con tag "Player"
         if (objetivo == null)
         {
-            GameObject jugador = GameObject.FindGameObjectWithTag("Player");
+            GameObject jugador = GameObject.FindGameObjectWithTag("Character");
             if (jugador != null)
             {
                 objetivo = jugador.transform;

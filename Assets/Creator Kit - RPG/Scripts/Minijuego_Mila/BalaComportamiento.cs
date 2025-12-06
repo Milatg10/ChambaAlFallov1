@@ -15,27 +15,38 @@ public class BalaComportamiento : MonoBehaviour
 
     void Update()
     {
-        // Moverse hacia "arriba" (su eje Y local)
-        transform.Translate(Vector2.up * velocidad * Time.deltaTime);
+        // CAMBIO AQUÍ: Usamos .right porque el texto se lee de izquierda a derecha.
+        transform.Translate(Vector2.right * velocidad * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // 1. Si choca con un enemigo
-        if (other.CompareTag("Bug"))
+        // 1. Si choca con un enemigo (Slime) -> Lo mata
+        if (other.CompareTag("Bug") || other.CompareTag("Enemigo"))
         {
             BugVida vidaScript = other.GetComponent<BugVida>();
             if (vidaScript != null)
             {
                 vidaScript.RecibirDañoPublico(); 
             }
-            Destroy(gameObject); // La bala desaparece al dar
+            Destroy(gameObject); // Tu bala muere al impactar
         }
-        // 2. Si choca con cualquier cosa que NO sea el personaje ("Character")
-        // AQUÍ ESTÁ EL CAMBIO: Antes ponía "Player", ahora "Character"
-        else if (!other.CompareTag("Character")) 
+        
+        // --- NUEVO: DINÁMICA DE CHOQUE DE BALAS ---
+        // 2. Si choca con una bala enemiga -> ¡EXPLOSIÓN MUTUA!
+        else if (other.CompareTag("BalaEnemiga"))
         {
-             Destroy(gameObject); // Chocó con una pared o mueble
+            Destroy(other.gameObject); // Destruye la bala del Slime (ERROR)
+            Destroy(gameObject);       // Destruye tu bala (print)
+            
+            // (Opcional) Aquí podrías poner un sonido de "chispazo" o efecto visual
+            Debug.Log("¡Código depurado en el aire!");
+        }
+        
+        // 3. Ignoramos al jugador y a otras balas propias
+        else if (!other.CompareTag("Character") && !other.CompareTag("Weapon")) 
+        {
+             Destroy(gameObject); // Chocó con pared
         }
     }
 }
