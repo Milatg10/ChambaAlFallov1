@@ -68406,6 +68406,7 @@ MonoBehaviour:
   textoUI: {fileID: 918019085}
   totalAEncontrar: 3
   cantidadActual: 0
+  datosContador: {fileID: 11400000, guid: 7953a6de1efb9b94bb9c934ffe602bb0, type: 2}
 --- !u!1001 &2075873533
 PrefabInstance:
   m_ObjectHideFlags: 0
