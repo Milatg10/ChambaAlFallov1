@@ -10,7 +10,7 @@ public class ContadorItems : MonoBehaviour
     public int totalAEncontrar = 3;   // Cuántos hay en total (3)
     
     public int cantidadActual = 0;   // Empezamos en 0
-
+    public ContadorData datosContador;
     private bool NPC = false;
 
     void Start()
@@ -25,6 +25,7 @@ public class ContadorItems : MonoBehaviour
         else
         {
             cantidadActual++; // Sumamos 1
+            datosContador.cantidadObjetos = cantidadActual;
         }
         
         // Que no se pase del tope
@@ -44,6 +45,7 @@ public class ContadorItems : MonoBehaviour
         {
             NPC = true;
         }
+
     }
 
     void ActualizarMarcador()
