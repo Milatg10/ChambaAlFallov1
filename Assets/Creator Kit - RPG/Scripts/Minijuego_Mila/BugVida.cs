@@ -45,6 +45,10 @@ public class BugVida : MonoBehaviour
 
         if (vida <= 0)
         {
+            if (GameManagerMila.instance != null)
+                {
+                    GameManagerMila.instance.RegistrarMuerteBug();
+                }
             StartCoroutine(MorirConEstilo());
         }
     }

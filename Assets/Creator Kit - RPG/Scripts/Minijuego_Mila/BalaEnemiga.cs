@@ -44,8 +44,8 @@ public class BalaEnemiga : MonoBehaviour
             return;
         }
 
-        // 4. Paredes (Cualquier otra cosa que no sea Bug ni Enemigo)
-        else if (!other.CompareTag("Bug") && !other.CompareTag("Enemigo"))
+        // 4. Paredes (Cualquier otra cosa que no sea Bug)
+        else if (!other.CompareTag("Bug"))
         {
             Destroy(gameObject);
         }

@@ -22,7 +22,7 @@ public class BalaComportamiento : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         // 1. Si choca con un enemigo (Slime) -> Lo mata
-        if (other.CompareTag("Bug") || other.CompareTag("Enemigo"))
+        if (other.CompareTag("Bug"))
         {
             BugVida vidaScript = other.GetComponent<BugVida>();
             if (vidaScript != null)
