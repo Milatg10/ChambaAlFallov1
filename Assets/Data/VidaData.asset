@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a6777a4876d9184c88b15132cd09650, type: 3}
   m_Name: VidaData
   m_EditorClassIdentifier: Assembly-CSharp::VidaData
-  vidaMaxima: 1000
-  vidaActual: 1000
+  vidaMaxima: 100
+  vidaActual: 36.17127

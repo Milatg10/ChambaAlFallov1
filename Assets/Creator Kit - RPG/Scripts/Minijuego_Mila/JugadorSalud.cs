@@ -11,7 +11,7 @@ public class JugadorSalud : MonoBehaviour
     public float tiempoInvencible = 1.0f; // Cuánto dura el parpadeo
     private bool esInvencible = false;
     private SpriteRenderer misGraficos;
-
+    private bool estaMuerto = false;
     
 
     void Start()
@@ -19,34 +19,75 @@ public class JugadorSalud : MonoBehaviour
         misGraficos = GetComponent<SpriteRenderer>();
         // Opcional: Curar al personaje al entrar en tu minijuego
         // datosVida.vidaActual = datosVida.vidaMaxima; 
+        estaMuerto = false;
+    }
+
+    void Update()
+    {
+        // Si ya estamos muertos, no hacemos nada
+        if (estaMuerto || datosVida == null) return;
+
+        // 2. VIGILANTE DE MUERTE POR TIEMPO
+        // Si la vida llega a cero (por el tiempo o lo que sea), nos morimos
+        if (datosVida.vidaActual <= 0)
+        {
+            Morir();
+        }
     }
 
     // Cambiamos 'int' por 'float' porque VidaData usa floats
     public void RecibirGolpe(float daño)
     {
+        // SEGURIDAD: Si por lo que sea el objeto ya está apagado, no hacemos nada
+        if (!gameObject.activeInHierarchy) return;
+
         if (esInvencible) return;
 
         if (datosVida != null)
         {
-            // Restamos vida a la variable global compartida
-            datosVida.vidaActual -= daño; 
-            Debug.Log("Vida actual: " + datosVida.vidaActual);
-        }
-        else
-        {
-            Debug.LogError("¡ERROR! Falta asignar VidaData en el inspector del Jugador.");
-        }
-        
-        if (datosVida.vidaActual <= 0)
-        {
+            datosVida.vidaActual -= daño;
+
+            // Comprobar muerte
+            if (datosVida.vidaActual <= 0)
+            {
                 Debug.Log("¡JUGADOR ELIMINADO!");
-                // Aquí iría tu SceneManager.LoadScene...
+                
+                if (GameManagerMila.instance != null)
+                {
+                    Morir();
+                    return;
+                }
+                
+                // Apagamos al personaje
+                gameObject.SetActive(false); 
+                
+            }
         }
 
-
+        // --- SOLUCIÓN DEL ERROR ---
+        // Como hemos puesto el 'return' arriba si morimos,
+        // esta línea solo se ejecutará si SEGUIMOS VIVOS.
         StartCoroutine(InvulnerabilidadTemporada());
     }
 
+    // --- FUNCIÓN ÚNICA DE MUERTE ---
+    // Da igual si te mata una bala o el reloj, ambos llaman a esto.
+    void Morir()
+    {
+        if (estaMuerto) return; // Seguridad para no morir 2 veces
+        estaMuerto = true;
+
+        Debug.Log("¡JUGADOR ELIMINADO!");
+                
+        // 1. Avisar al Manager
+        if (GameManagerMila.instance != null)
+        {
+            GameManagerMila.instance.GameOver();
+        }
+                
+        // 2. Apagar al personaje
+        gameObject.SetActive(false); 
+    }
     IEnumerator InvulnerabilidadTemporada()
     {
         esInvencible = true; // Activamos escudo para no recibir mil golpes a la vez

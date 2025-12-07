@@ -2,16 +2,28 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems; // <--- NECESARIO PARA USAR FLECHAS Y TECLADO
 
 public class GameManagerMila : MonoBehaviour
 {
-    // --- NUEVO: CREAMOS UNA INSTANCIA PARA QUE LOS BUGS PUEDAN HABLARNOS ---
     public static GameManagerMila instance;
+
+    // --- NUEVO: VARIABLES DE MEMORIA (STATIC) ---
+    // Al ser static, no se borran al reiniciar el nivel con LoadScene
+    private static float vidaGuardada; 
+    private static bool vieneDeReintento = false;
 
     [Header("Configuración de UI")]
     public TMP_Text textoFase;
     public TMP_Text textoDialogo;
     public TMP_Text textoInstrucciones;
+
+    [Header("Game Over UI")]
+    public GameObject panelGameOver;
+    public GameObject botonInicialGameOver; // ARRASTRA AQUÍ EL BOTÓN "REINTENTAR"
+
+    [Header("Datos del Jugador")]
+    public VidaData datosVida;
 
     [Header("Enemigos (Prefabs)")]
     public GameObject bugAzul;
@@ -22,19 +34,18 @@ public class GameManagerMila : MonoBehaviour
     public Transform[] puntosSpawn;
 
     [Header("Recompensa Final")]
-    public GameObject prefabRaton; // Arrastra aquí tu ratón
-    public Transform puntoSpawnRaton; // Dónde quieres que salga (ej: en el centro)
+    public GameObject prefabRaton;
+    public Transform puntoSpawnRaton;
 
     [Header("Salida")]
-    public string nombreEscenaPrincipal = "SampleScene"; // <--- 2. ESCRIBE AQUÍ EL NOMBRE DE TU JUEGO
+    public string nombreEscenaPrincipal = "SampleScene";
 
     private int enemigosRestantes = 0;
     private bool juegoIniciado = false;
-    private bool juegoTerminado = false; // <--- 3. PARA SABER SI YA TENEMOS EL RATÓN
+    private bool juegoTerminado = false;
 
     void Awake()
     {
-        // Configuramos la instancia para que sea accesible desde cualquier script
         if (instance == null) instance = this;
     }
 
@@ -42,109 +53,149 @@ public class GameManagerMila : MonoBehaviour
     {
         textoFase.text = "ARREGLA LOS BUGS";
         textoInstrucciones.text = "Muévete con las flechas del teclado\nDispara con ESPACIO\n\nPulsa ENTER para empezar a compilar...";
+                
+        if(panelGameOver != null) panelGameOver.SetActive(false);
+
+        // --- NUEVO: LÓGICA DE MEMORIA DE VIDA ---
+        if (datosVida != null)
+        {
+            if (!vieneDeReintento)
+            {
+                // CASO 1: Acabas de llegar del pueblo (Primera vez)
+                // Guardamos una "foto" de la vida que traes
+                vidaGuardada = datosVida.vidaActual;
+                Debug.Log("Vida guardada al entrar: " + vidaGuardada);
+            }
+            else
+            {
+                // CASO 2: Vienes de pulsar "Reintentar"
+                // No guardamos nada nuevo, usaremos la vidaGuardada que ya tenemos
+                Debug.Log("Reintento detectado. Usaremos la vida guardada: " + vidaGuardada);
+            }
+        }
     }
 
     void Update()
     {
-        // Inicio del juego
+        // Inicio del juego con Enter
         if (!juegoIniciado && !juegoTerminado && Input.GetKeyDown(KeyCode.Return))
         {
             juegoIniciado = true;
             StartCoroutine(RutinaJuegoCompleto());
         }
 
-        // --- 4. SALIDA DEL JUEGO (ESC) ---
-        // Solo funciona si ya has ganado (tienes el ratón)
+        // Salida con ESC (Solo si ganaste)
         if (juegoTerminado && Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log("Volviendo al juego principal...");
-            SceneManager.LoadScene(nombreEscenaPrincipal);
+            SalirDelMinijuego();
         }
     }
 
-    // --- NUEVO: FUNCIÓN QUE LLAMAN LOS BUGS AL MORIR ---
+    // --- LÓGICA DE GAME OVER ---
+    public void GameOver()
+    {
+        StopAllCoroutines();
+        juegoTerminado = true;
+
+        if (panelGameOver != null) 
+        {
+            panelGameOver.SetActive(true);
+
+            // 2. ACTIVAR NAVEGACIÓN POR TECLADO
+            // Esto le dice a Unity: "Pon el cursor en este botón YA"
+            if (botonInicialGameOver != null)
+            {
+                // Limpiamos selección anterior
+                EventSystem.current.SetSelectedGameObject(null);
+                // Seleccionamos el botón nuevo
+                EventSystem.current.SetSelectedGameObject(botonInicialGameOver);
+            }
+        }
+    }
+
+    public void BotonReintentar()
+    {
+        // --- CAMBIO IMPORTANTE ---
+        // Activamos la bandera para saber que estamos reintentando
+        vieneDeReintento = true;
+
+        // En vez de curar al máximo (vidaMaxima), restauramos la vida guardada
+        if (datosVida != null) 
+        {
+            // Seguridad: Si la vida guardada es 0 o menos (error raro), le damos al menos 1 punto
+            if (vidaGuardada <= 0) vidaGuardada = 10f; 
+            
+            datosVida.vidaActual = vidaGuardada;
+        }
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void BotonSalir()
+    {
+        // Al salir, reseteamos la memoria para que la próxima vez sea "nueva partida"
+        vieneDeReintento = false; 
+        SalirDelMinijuego();
+    }
+
+    void SalirDelMinijuego()
+    {
+        SceneManager.LoadScene(nombreEscenaPrincipal);
+    }
+
     public void RegistrarMuerteBug()
     {
         enemigosRestantes--;
-        
-        // (Opcional) Debug para ver cuántos quedan
-        Debug.Log("Quedan " + enemigosRestantes + " bugs para pasar de fase.");
     }
 
-    // --- 5. FUNCIÓN QUE LLAMA EL RATÓN AL RECOGERLO ---
     public void RatonRecogido()
     {
-        StopAllCoroutines(); // Paramos cualquier cosa que estuviera pasando
+        StopAllCoroutines();
         
         textoFase.color = Color.green;
         textoFase.text = "¡ERRORES DEPURADOS!";
         textoDialogo.text = "Has recuperado el control del sistema.";
-        
-        // El mensaje importante:
         textoInstrucciones.text = "Pulsa ESC para volver al mundo real";
-        textoInstrucciones.gameObject.SetActive(true); // Aseguramos que se vea
+        textoInstrucciones.gameObject.SetActive(true);
 
-        juegoTerminado = true; // Activamos la bandera para que funcione el ESC
+        juegoTerminado = true;
     }
+
     IEnumerator RutinaJuegoCompleto()
     {
-        // ================= FASE 1: EL HOLA MUNDO (AZULES) =================
+        // FASE 1
         yield return MostrarFase("FASE 1: HOLA MUNDO", "System.out.println('Mata los bugs azules');", Color.cyan);
-        
-        // CONFIGURAMOS LA META: Hay que matar 5
         enemigosRestantes = 5; 
-        
-        // Lanzamos la oleada (5 azules)
         yield return SpawnOleada(bugAzul, 5, 1.5f); 
-        
-        // --- NUEVO: ESPERAMOS HASTA QUE MATES A TODOS ---
-        // El código se queda "congelado" en esta línea hasta que enemigosRestantes sea 0
         yield return new WaitUntil(() => enemigosRestantes <= 0);
-        
-        // Pequeño descanso para celebrar antes de la siguiente
         yield return new WaitForSeconds(2f); 
 
-        // ================= FASE 2: WARNINGS IGNORADOS (VERDES + AZULES) =================
+        // FASE 2
         yield return MostrarFase("FASE 2: WARNINGS IGNORADOS", "¡Cuidado! Variable no usada declarada...", Color.yellow);
-
-        // META: 3 Verdes + 4 Azules = 7 enemigos
         enemigosRestantes = 7;
-
-        // Lanzamos las oleadas
         yield return SpawnOleada(bugVerde, 3, 2f); 
-        StartCoroutine(SpawnOleada(bugAzul, 4, 2f)); // Salen a la vez
-        
-        // ESPERAMOS A QUE LIMPIES LA PANTALLA
+        StartCoroutine(SpawnOleada(bugAzul, 4, 2f)); 
         yield return new WaitUntil(() => enemigosRestantes <= 0);
         yield return new WaitForSeconds(2f);
 
-        // ================= FASE 3: SEGMENTATION FAULT (TODOS) =================
+        // FASE 3
         yield return MostrarFase("FASE 3: SEGMENTATION FAULT", "FATAL ERROR: Segmentation Fault\n¡EL SISTEMA SE CAE!", Color.red);
-
-        // META: 2 Rojos + 5 Azules + 3 Verdes = 10 enemigos
         enemigosRestantes = 10;
-
         yield return SpawnOleada(bugRojo, 2, 1f);
         yield return new WaitForSeconds(1f);
         StartCoroutine(SpawnOleada(bugAzul, 5, 1f));
         StartCoroutine(SpawnOleada(bugVerde, 3, 2f)); 
-        
-        // ESPERAMOS A QUE SOBREVIVAS AL CAOS
         yield return new WaitUntil(() => enemigosRestantes <= 0);
 
-        // ================= FIN DEL JUEGO =================
+        // FIN
         yield return new WaitForSeconds(2f);
         textoFase.color = Color.green;
         textoFase.text = "COMPILACIÓN COMPLETADA";
         textoDialogo.text = "¡Has salvado el código! Recoge tu recompensa.";
         textoInstrucciones.text = "Busca el ratón en el mapa";
 
-        // --- NUEVO: CREAR EL RATÓN ---
         if (prefabRaton != null)
         {
-            // La creamos en el punto que elijas (o en el centro 0,0,0 si prefieres)
-            // Si usas puntoSpawnManzana, asegúrate de asignarlo en Unity o dará error.
-            // Si no quieres crear un punto, cambia "puntoSpawnManzana.position" por "Vector3.zero"
             Instantiate(prefabRaton, puntoSpawnRaton.position, Quaternion.identity);
         }
     }
@@ -154,11 +205,7 @@ public class GameManagerMila : MonoBehaviour
         textoFase.color = colorTitulo;
         textoFase.text = titulo;
         textoDialogo.text = frase;
-        
-        // Sonido opcional aquí si quisieras
-        
         yield return new WaitForSeconds(4f);
-        
         textoFase.text = ""; 
         textoDialogo.text = "";
         textoInstrucciones.text = "";
