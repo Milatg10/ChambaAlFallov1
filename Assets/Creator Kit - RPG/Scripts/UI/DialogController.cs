@@ -67,7 +67,32 @@ namespace RPGM.UI
         }
 
         public void Show(Vector3 position, string text)
-        {
+        {   
+            if (text.Contains("¿Esto es tuyo?")) 
+            {
+                try // Intentamos hacerlo...
+                {
+                    Debug.Log("1. Frase detectada. Buscando contador...");
+                    var contador = FindObjectOfType<ContadorItems>();
+                    
+                    if (contador != null) 
+                    {
+                        Debug.Log("2. Contador encontrado. Sumando...");
+                        contador.SumarObjeto();
+                        Debug.Log("3. ¡Suma realizada con éxito!");
+                    }
+                    else
+                    {
+                        Debug.LogError("¡ERROR CRÍTICO! No encuentro el objeto 'GameManager' o 'Contador' en la escena.");
+                    }
+                }
+                catch (System.Exception e) // Si algo explota, lo capturamos aquí
+                {
+                    Debug.LogError("¡EXPLOSIÓN CONTROLADA! El error es: " + e.Message);
+                    Debug.LogError("Probablemente te falta arrastrar el Texto en el Inspector del GameManager.");
+                }
+            }
+
             var d = dialogLayout;
             d.gameObject.SetActive(true);
             d.SetText(text);
@@ -79,6 +104,12 @@ namespace RPGM.UI
 
         public void Show(Vector3 position, string text, string buttonA)
         {
+            if (text.Contains("¿Esto es tuyo?")) 
+            {
+                var contador = FindObjectOfType<ContadorItems>();
+                if (contador != null) contador.SumarObjeto();
+            }
+
             UserInterfaceAudio.OnShowDialog();
             var d = dialogLayout;
             d.gameObject.SetActive(true);
@@ -90,7 +121,13 @@ namespace RPGM.UI
         }
 
         public void Show(Vector3 position, string text, string buttonA, string buttonB)
-        {
+        {   
+            if (text.Contains("¿Esto es tuyo?")) 
+            {
+                var contador = FindObjectOfType<ContadorItems>();
+                if (contador != null) contador.SumarObjeto();
+            }
+
             UserInterfaceAudio.OnShowDialog();
             var d = dialogLayout;
             d.gameObject.SetActive(true);
@@ -109,7 +146,7 @@ namespace RPGM.UI
         }
 
         public void Show(Vector3 position, string text, string buttonA, string buttonB, string buttonC)
-        {
+        {   
             UserInterfaceAudio.OnShowDialog();
             var d = dialogLayout;
             d.gameObject.SetActive(true);
