@@ -128,8 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c21e66064743342bd948d4c3acb61f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vida: 3
-  "da\xF1o": 2
+  vida: 5
+  "da\xF1o": 3
 --- !u!114 &8171885181957061183
 MonoBehaviour:
   m_ObjectHideFlags: 0
