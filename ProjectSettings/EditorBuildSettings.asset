@@ -17,4 +17,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Creator Kit - RPG/Scenes/Minijuego_Mila.unity
     guid: 8782812d20852b847b8d0ebbe14cb8c0
+  - enabled: 1
+    path: Assets/Ada/EscenaPuzleBloques.unity
+    guid: f052fef186bf57e4ebc50e051557a109
+  - enabled: 1
+    path: Assets/Ada/EscenaPuzleEspejos.unity
+    guid: 9b899e60e446576459b32811e2f95638
+  - enabled: 1
+    path: Assets/Ada/SalidaCasa.unity
+    guid: 6856f05974ca0ed4fb632bd78fab9b01
+  - enabled: 1
+    path: Assets/Ada/SalidaPuzzle.unity
+    guid: 3587f64f397e8984590d9e1a866eb58e
   m_configObjects: {}
