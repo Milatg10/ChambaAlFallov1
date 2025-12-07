@@ -1131,7 +1131,7 @@ PrefabInstance:
     - target: {fileID: 3273605809934700987, guid: 1c14ebde4b5e54881a67b686f46e6b1d,
         type: 3}
       propertyPath: orthographic size
-      value: 4.03125
+      value: 4.21875
       objectReference: {fileID: 0}
     - target: {fileID: 3273605809934700990, guid: 1c14ebde4b5e54881a67b686f46e6b1d,
         type: 3}
@@ -5514,7 +5514,7 @@ PrefabInstance:
     - target: {fileID: 4313844411128732863, guid: 81816288a86af46c598e1fa3b10e24a4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.2250001
+      value: -3.375
       objectReference: {fileID: 0}
     - target: {fileID: 4313844411128732863, guid: 81816288a86af46c598e1fa3b10e24a4,
         type: 3}
@@ -6978,7 +6978,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &505933840
 MonoBehaviour:
@@ -29186,7 +29186,7 @@ RectTransform:
   - {fileID: 1298276569}
   - {fileID: 2118713949}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -36816,7 +36816,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &824511691
 GameObject:
@@ -41127,18 +41127,6 @@ CircleCollider2D:
   m_Offset: {x: -0.031533957, y: 0.23981452}
   serializedVersion: 2
   m_Radius: 0.3125
---- !u!114 &1045209963 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2859207028525565037, guid: 892adef1765f6784c99c5dba866b6477,
-    type: 3}
-  m_PrefabInstance: {fileID: 2859207029235230470}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7efdeb7862f99544ea08400a6f6ca4b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1045491840 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3565820625442129445, guid: 8d9e5ee92a6bccc4892e3ebb23cc4766,
@@ -43867,7 +43855,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1273732089
 GameObject:
@@ -45127,7 +45115,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1372149476
 GameObject:
@@ -63037,6 +63025,18 @@ Transform:
   m_Father: {fileID: 2021118583}
   m_RootOrder: 95
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1696207726 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2135676307785126238, guid: 5a20885025713fb4da498b4b94cfa096,
+    type: 3}
+  m_PrefabInstance: {fileID: 2859207029235230470}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &1697366325
 GameObject:
   m_ObjectHideFlags: 0
@@ -64230,7 +64230,7 @@ Transform:
   - {fileID: 1940599604}
   - {fileID: 1930766180}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1746600403
 GameObject:
@@ -64600,7 +64600,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1751722098
 MonoBehaviour:
@@ -64616,7 +64616,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Aviso_Espacio: {fileID: 1298276567}
   Mensaje_Bloqueado: {fileID: 2118713948}
-  Pantalla_carga: {fileID: 1045209963}
+  Pantalla_carga: {fileID: 0}
   nombreEscenaDestino: Minijuego_Mila
   objetosNecesarios: 1
 --- !u!1001 &1756049569
@@ -66799,12 +66799,12 @@ PrefabInstance:
     - target: {fileID: 1481126516830738366, guid: ab3f7178010354d87a5016c7d6b23a5a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.515625
+      value: -7.4999995
       objectReference: {fileID: 0}
     - target: {fileID: 1481126516830738366, guid: ab3f7178010354d87a5016c7d6b23a5a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.03125
+      value: -4.21875
       objectReference: {fileID: 0}
     - target: {fileID: 1481126516830738366, guid: ab3f7178010354d87a5016c7d6b23a5a,
         type: 3}
@@ -68672,7 +68672,7 @@ Transform:
   m_Children:
   - {fileID: 1590335554}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2067464446
 MonoBehaviour:
@@ -70291,18 +70291,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a20885025713fb4da498b4b94cfa096, type: 3}
---- !u!114 &2135676307339396793 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2135676307785126238, guid: 5a20885025713fb4da498b4b94cfa096,
-    type: 3}
-  m_PrefabInstance: {fileID: 2135676307339396792}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1001 &2950804947088509631
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -70318,7 +70306,7 @@ PrefabInstance:
     - target: {fileID: 2950804947535917089, guid: 7c53998562858411aa85d8e0c4bc1333,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -40.875
+      value: -36
       objectReference: {fileID: 0}
     - target: {fileID: 2950804947535917089, guid: 7c53998562858411aa85d8e0c4bc1333,
         type: 3}
@@ -70583,7 +70571,7 @@ PrefabInstance:
     - target: {fileID: 6943210775000656825, guid: fb58dc84dca7b49f99bde3835c80609b,
         type: 3}
       propertyPath: orthographic size
-      value: 4.03125
+      value: 4.21875
       objectReference: {fileID: 0}
     - target: {fileID: 6943210775000656828, guid: fb58dc84dca7b49f99bde3835c80609b,
         type: 3}
@@ -70786,7 +70774,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vida: {fileID: 11400000, guid: a6d3e5714c0103847ac556e97afebfe1, type: 2}
-  barra: {fileID: 2135676307339396793}
+  barra: {fileID: 1696207726}
   danoPorSegundo: 0.1
   colorCompleto: {r: 0, g: 1, b: 0, a: 1}
   colorMedio: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
