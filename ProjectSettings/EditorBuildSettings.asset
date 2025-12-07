@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Ada/SalidaPuzzle.unity
     guid: 3587f64f397e8984590d9e1a866eb58e
+  - enabled: 1
+    path: Assets/Rina/Habitacion_Manuel.unity
+    guid: b306ce2e003104741b7877089470bb36
   m_configObjects: {}

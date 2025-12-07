@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using RPGM.Gameplay;
 using UnityEngine;
 
+using UnityEngine.Events;
+
 namespace RPGM.Gameplay
 {
     /// <summary>
@@ -19,6 +21,9 @@ namespace RPGM.Gameplay
         public Sprite image;
         public AudioClip audio;
         public Quest quest;
+
+        public UnityEvent miEvento;
+        
         public List<ConversationOption> options;
     }
 }
