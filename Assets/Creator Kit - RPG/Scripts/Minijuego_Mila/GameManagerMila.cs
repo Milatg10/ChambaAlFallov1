@@ -23,7 +23,7 @@ public class GameManagerMila : MonoBehaviour
     public GameObject botonInicialGameOver; // ARRASTRA AQUÍ EL BOTÓN "REINTENTAR"
 
     [Header("Datos del Jugador")]
-    public VidaData datosVida;
+    public MundoData datosVida;
 
     [Header("Enemigos (Prefabs)")]
     public GameObject bugAzul;

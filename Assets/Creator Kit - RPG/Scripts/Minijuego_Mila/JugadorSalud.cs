@@ -5,7 +5,7 @@ using UnityEngine;
 public class JugadorSalud : MonoBehaviour
 {
     // Arrastra aquí el archivo VidaData azul de la carpeta Data
-    public VidaData datosVida; 
+    public MundoData datosVida; 
 
     [Header("Invencibilidad / Parpadeo")]
     public float tiempoInvencible = 1.0f; // Cuánto dura el parpadeo
