@@ -130,6 +130,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vida: 5
   "da\xF1o": 3
+  sonidoGolpe: {fileID: 8300000, guid: 570995af98f21bd40af6b8d6a3f31749, type: 3}
+  sonidoMuerte: {fileID: 8300000, guid: 5565237c4adc65d4c807e73a0b78d042, type: 3}
+  volumenMuerte: 0.5
 --- !u!114 &8171885181957061183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,7 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objetivo: {fileID: 0}
-  velocidad: 1.25
+  velocidad: 0.75
   distanciaMinima: 3
 --- !u!114 &-4857744218831126881
 MonoBehaviour:
@@ -159,7 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   balaPrefab: {fileID: 4140271572549220068, guid: 6b6d8c12183b98f43a8e947c6cf6a322,
     type: 3}
-  tiempoEntreDisparos: 1
+  tiempoEntreDisparos: 2
   cantidadBalas: 3
   anguloApertura: 30
 --- !u!50 &5440693676776761847

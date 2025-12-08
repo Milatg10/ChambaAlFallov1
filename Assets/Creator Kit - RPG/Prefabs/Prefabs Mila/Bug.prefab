@@ -129,7 +129,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vida: 3
-  "da\xF1o": 2
+  "da\xF1o": 1
+  sonidoGolpe: {fileID: 8300000, guid: 570995af98f21bd40af6b8d6a3f31749, type: 3}
+  sonidoMuerte: {fileID: 8300000, guid: 5565237c4adc65d4c807e73a0b78d042, type: 3}
+  volumenMuerte: 0.5
 --- !u!114 &8171885181957061183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,7 +183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   balaErrorPrefab: {fileID: 4140271572549220068, guid: 73905e97b4dfdab4899bc05efd2847cf,
     type: 3}
-  tiempoEntreDisparos: 1
+  tiempoEntreDisparos: 2
 --- !u!95 &4240769394733909192
 Animator:
   serializedVersion: 4

@@ -5,8 +5,16 @@ using UnityEngine;
 public class PlayerDisparo : MonoBehaviour
 {
     public GameObject balaPrefab;
+    // --- NUEVO 1: Variable para el sonido ---
+    public AudioClip sonidoDisparo; // Arrastra aquí el archivo de sonido
+    private AudioSource miAudio;    // El "altavoz" del personaje
     private Vector2 ultimaDireccion = Vector2.down; // Mira abajo por defecto
 
+    void Start()
+    {
+        // --- NUEVO 2: Enchufamos el altavoz ---
+        miAudio = GetComponent<AudioSource>();
+    }
     void Update()
     {
         // 1. Detectar hacia dónde miramos (esto ya lo tienes igual)
@@ -49,5 +57,13 @@ public class PlayerDisparo : MonoBehaviour
             posicionNacimiento.z = 0;
 
             Instantiate(balaPrefab, posicionNacimiento, rotacion);
+
+            // --- NUEVO 3: ¡SONIDO! ---
+            if (miAudio != null && sonidoDisparo != null)
+            {
+                // PlayOneShot es perfecto para disparos porque permite que suenen
+                // varios a la vez si disparas muy rápido.
+                miAudio.PlayOneShot(sonidoDisparo);
+            }
         }
 }

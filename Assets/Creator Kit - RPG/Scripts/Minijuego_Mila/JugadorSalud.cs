@@ -9,9 +9,16 @@ public class JugadorSalud : MonoBehaviour
 
     [Header("Invencibilidad / Parpadeo")]
     public float tiempoInvencible = 1.0f; // Cuánto dura el parpadeo
+
+    [Header("Audio FX")]
+    public AudioClip sonidoHerido; // Arrastra aquí el sonido de dolor
+
+    private AudioSource miAudio; // El altavoz
+
     private bool esInvencible = false;
     private SpriteRenderer misGraficos;
     private bool estaMuerto = false;
+    
     
 
     void Start()
@@ -20,6 +27,9 @@ public class JugadorSalud : MonoBehaviour
         // Opcional: Curar al personaje al entrar en tu minijuego
         // datosVida.vidaActual = datosVida.vidaMaxima; 
         estaMuerto = false;
+        // Buscamos el altavoz (si no existe, lo avisamos, pero no debería fallar si hiciste el paso anterior)
+        miAudio = GetComponent<AudioSource>();
+        if (miAudio == null) miAudio = gameObject.AddComponent<AudioSource>();
     }
 
     void Update()
@@ -40,6 +50,13 @@ public class JugadorSalud : MonoBehaviour
     {
         // SEGURIDAD: Si por lo que sea el objeto ya está apagado, no hacemos nada
         if (!gameObject.activeInHierarchy) return;
+
+        // --- NUEVO: REPRODUCIR SONIDO DE DOLOR ---
+        if (miAudio != null && sonidoHerido != null)
+        {
+            // El segundo número (volumenHerido) controla el volumen solo de este sonido
+            miAudio.PlayOneShot(sonidoHerido);
+        }
 
         if (esInvencible) return;
 
