@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11b5f0b79e7272a43883eadfe340b627, type: 3}
   m_Name: Contador
   m_EditorClassIdentifier: 
-  cantidadObjetos: 0
+  cantidadObjetos: 2
