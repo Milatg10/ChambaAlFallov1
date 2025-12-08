@@ -53,15 +53,29 @@ namespace RPGM.Gameplay
             velocity = Mathf.Clamp01(velocity + Time.deltaTime * acceleration);
             UpdateAnimator(nextMoveCommand);
             rigidbody2D.velocity = Vector2.SmoothDamp(rigidbody2D.velocity, nextMoveCommand * speed, ref currentVelocity, acceleration, speed);
-            spriteRenderer.flipX = rigidbody2D.velocity.x >= 0 ? true : false;
+            bool estoyAgarrando = false;
+            if (animator) estoyAgarrando = animator.GetBool("Agarrando");
+
+            if (!estoyAgarrando)
+            {
+                // Solo si no agarro, permito que el código voltee al personaje
+                spriteRenderer.flipX = rigidbody2D.velocity.x >= 0 ? true : false;
+            }
         }
 
         void UpdateAnimator(Vector3 direction)
         {
             if (animator)
             {
-                animator.SetInteger("WalkX", direction.x < 0 ? -1 : direction.x > 0 ? 1 : 0);
-                animator.SetInteger("WalkY", direction.y < 0 ? 1 : direction.y > 0 ? -1 : 0);
+                bool estoyAgarrando = animator.GetBool("Agarrando");
+
+                // SOLO cambiamos la dirección si NO estamos agarrando nada.
+                // Si estamos agarrando, el código se salta esto y mantiene la última pose.
+                if (!estoyAgarrando)
+                {
+                    animator.SetInteger("WalkX", direction.x < 0 ? -1 : direction.x > 0 ? 1 : 0);
+                    animator.SetInteger("WalkY", direction.y < 0 ? 1 : direction.y > 0 ? -1 : 0);
+                }
             }
         }
 

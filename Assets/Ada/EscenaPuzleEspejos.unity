@@ -817,7 +817,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 182868252}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.6999, y: 3.2533, z: 0}
+  m_LocalPosition: {x: -2.618, y: 3.23, z: 0}
   m_LocalScale: {x: 0.46967, y: 0.46967, z: 0.46967}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2636,6 +2636,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 22100000, guid: 7bfb43d7068f94aff8f20e9a7916bee6,
         type: 2}
+    - target: {fileID: 8171158353334016010, guid: 84535a21e4ab6412690b5fa8acc3908e,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8171158353334016012, guid: 84535a21e4ab6412690b5fa8acc3908e,
         type: 3}
       propertyPath: m_SortingOrder
@@ -2772,6 +2777,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   tagObjeto: Espejo
+  animator: {fileID: 734056973}
 --- !u!60 &734056971
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -2827,6 +2833,12 @@ MonoBehaviour:
   colorCompleto: {r: 0, g: 1, b: 0, a: 1}
   colorMedio: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   colorBajo: {r: 1, g: 0, b: 0, a: 1}
+--- !u!95 &734056973 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8171158353334016010, guid: 84535a21e4ab6412690b5fa8acc3908e,
+    type: 3}
+  m_PrefabInstance: {fileID: 734056962}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &874991617
 GameObject:
   m_ObjectHideFlags: 0
@@ -2892,7 +2904,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 1500385321}
   totalAEncontrar: 3
-  cantidadActual: 0
   datosContador: {fileID: 11400000, guid: 7953a6de1efb9b94bb9c934ffe602bb0, type: 2}
 --- !u!4 &892692849
 Transform:
