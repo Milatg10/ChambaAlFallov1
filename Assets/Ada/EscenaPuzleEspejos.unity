@@ -4392,6 +4392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Mensaje: {fileID: 103891241}
+  DatosMundo: {fileID: 11400000, guid: a68a53599fbe08d4281a3e83c1d33420, type: 2}
 --- !u!82 &1258636041
 AudioSource:
   m_ObjectHideFlags: 0
