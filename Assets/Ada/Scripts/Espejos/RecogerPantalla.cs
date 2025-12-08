@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class RecogerPantalla : MonoBehaviour
 {
     public GameObject Mensaje;
+    public MundoData DatosMundo;
     private bool jugadorCerca = false;
 
     void Start()
@@ -23,10 +24,9 @@ public class RecogerPantalla : MonoBehaviour
 
     void Recoger()
     {
-        ContadorItems contador = FindObjectOfType<ContadorItems>();
-        if (contador != null)
+        if (DatosMundo != null)
         {
-            contador.SumarObjeto();
+            DatosMundo.objetosRecogidos += 1;
         }
         ControlLaser.pantallaRecogida = true;
         EstadoJuego.puzzle2Resuelto = true;
