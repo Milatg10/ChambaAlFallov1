@@ -7,9 +7,19 @@ public class SistemaAgarre : MonoBehaviour
     public LayerMask capasAgarrables;
     public string tagObjeto = "Espejo";
 
+    [Header("Referencias")]
+    public Animator animator;
+
     private GameObject objetoAgarrado;
     private Rigidbody2D rbEspejo; // Variable para recordar el RB del espejo
     private FixedJoint2D unionFisica;
+
+    void Start()
+    {
+        // Busca el animator automáticamente si se te olvida ponerlo
+        if (animator == null)
+            animator = GetComponent<Animator>();
+    }
 
     void Update()
     {
@@ -51,7 +61,6 @@ public class SistemaAgarre : MonoBehaviour
         // Guardamos la referencia al Rigidbody del espejo
         rbEspejo = rbObjeto;
 
-        // --- TRUCO DE MAGIA ---
         // Descongelamos la posición X e Y para poder moverlo
         // Solo dejamos congelada la rotación para que no ruede
         rbEspejo.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -61,6 +70,11 @@ public class SistemaAgarre : MonoBehaviour
         unionFisica.connectedBody = rbObjeto;
         unionFisica.dampingRatio = 1;
         unionFisica.frequency = 0;
+
+        if (animator != null)
+        {
+            animator.SetBool("Agarrando", true);
+        }
     }
 
     void Soltar()
@@ -80,6 +94,11 @@ public class SistemaAgarre : MonoBehaviour
         }
 
         objetoAgarrado = null;
+
+        if (animator != null)
+        {
+            animator.SetBool("Agarrando", false);
+        }
     }
 
     void OnDrawGizmosSelected()

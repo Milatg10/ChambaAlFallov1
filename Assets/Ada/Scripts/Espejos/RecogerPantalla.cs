@@ -23,8 +23,14 @@ public class RecogerPantalla : MonoBehaviour
 
     void Recoger()
     {
+        ContadorItems contador = FindObjectOfType<ContadorItems>();
+        if (contador != null)
+        {
+            contador.SumarObjeto();
+        }
         ControlLaser.pantallaRecogida = true;
         EstadoJuego.puzzle2Resuelto = true;
+
         StartCoroutine(MostrarYEsconder());
     }
 
