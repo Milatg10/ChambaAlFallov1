@@ -152,35 +152,88 @@ public class MeenuSystem2 : MonoBehaviour
     IEnumerator GiroControlado()
     {
         girando = true;
-        FinRuleta = false; // ← MUY IMPORTANTE
-
-        float duracion = tiempoGiro;     // Usa el tiempo que quieras (8s)
-        float tiempo = 0f;
-
-        float velocidadInicial = velocidadMax;
-        float velocidadFinal = 0f;
+        FinRuleta = false;
 
         panelRuleta.SetActive(true);
+
+        // 1. Elegimos sector al azar
+        int sectorAleatorio = Random.Range(0, nombresOpciones.Count);
+        float gradosPorSector = 360f / nombresOpciones.Count;
+
+        float anguloObjetivo = sectorAleatorio * gradosPorSector + gradosPorSector / 2f;
+
+        // 3 vueltas completas
+        float vueltasExtra = 1080f; 
+        float anguloFinal = vueltasExtra + anguloObjetivo;
+
+        float anguloInicial = ruletaObjetivo.eulerAngles.z;
+
+        // Duraciones
+        float durAcel = tiempoGiro * 0.25f;
+        float durConst = tiempoGiro * 0.35f;
+        float durFreno = tiempoGiro * 0.40f;
+
+        float tiempo = 0f;
 
         if (sonidoGiro != null)
             sonidoGiro.Play();
 
-        while (tiempo < duracion)
+        // --- ACELERACIÓN ---
+        while (tiempo < durAcel)
         {
+            float t = tiempo / durAcel;
+            float aceleracion = Mathf.SmoothStep(0f, 1f, t);
+
+            float angulo = Mathf.Lerp(
+                anguloInicial,
+                anguloInicial + (anguloFinal * 0.25f),
+                aceleracion
+            );
+
+            ruletaObjetivo.rotation = Quaternion.Euler(0, 0, angulo);
+
             tiempo += Time.deltaTime;
-            float t = tiempo / duracion;
-
-            // Frenado progresivo
-            float velocidad = Mathf.Lerp(velocidadInicial, velocidadFinal, t * t);
-
-            ruletaObjetivo.Rotate(0, 0, velocidad * Time.deltaTime);
-
             yield return null;
         }
 
-        girando = false;
+        // --- VELOCIDAD CONSTANTE ---
+        float anguloAcel = anguloInicial + (anguloFinal * 0.25f);
+        float anguloConst = anguloInicial + (anguloFinal * 0.75f);
 
-        DeterminarResultado(); // ← ahora sí, cuando realmente acaba
+        tiempo = 0f;
+        while (tiempo < durConst)
+        {
+            float t = tiempo / durConst;
+
+            float angulo = Mathf.Lerp(anguloAcel, anguloConst, t);
+
+            ruletaObjetivo.rotation = Quaternion.Euler(0, 0, angulo);
+
+            tiempo += Time.deltaTime;
+            yield return null;
+        }
+
+        // --- FRENADO ---
+        tiempo = 0f;
+        while (tiempo < durFreno)
+        {
+            float t = tiempo / durFreno;
+            float frenado = 1f - Mathf.Pow(1f - t, 2f);
+
+            float angulo = Mathf.Lerp(anguloConst, anguloInicial + anguloFinal, frenado);
+
+            ruletaObjetivo.rotation = Quaternion.Euler(0, 0, angulo);
+
+            tiempo += Time.deltaTime;
+            yield return null;
+        }
+
+        // Resultado final
+        NombreGanador = nombresOpciones[sectorAleatorio];
+        ValorGanador = valoresOpciones[sectorAleatorio];
+
+        FinRuleta = true;
+        girando = false;
     }
 
     // --- CALCULAR RESULTADO ---

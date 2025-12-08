@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Ada/SalidaPuzzle.unity
     guid: 3587f64f397e8984590d9e1a866eb58e
+  - enabled: 1
+    path: Assets/Creator Kit - RPG/Scenes/Final.unity
+    guid: a5928804486118f4e8158c069e64c337
   m_configObjects: {}
