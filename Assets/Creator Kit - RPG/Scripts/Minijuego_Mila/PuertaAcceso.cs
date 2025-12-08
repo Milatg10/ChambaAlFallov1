@@ -9,23 +9,22 @@ public class PuertaAcceso : MonoBehaviour
     {
         if (collision.CompareTag("Player") || collision.CompareTag("Character"))
         {
-            // --- NUEVO: GUARDAR POSICIÓN ---
-            // Guardamos dónde está el jugador AHORA MISMO
             float x = collision.transform.position.x;
             float y = collision.transform.position.y;
             float z = collision.transform.position.z;
 
-            // TRUCO ANTI-BUCLE: 
-            // Si reapareces EXACTAMENTE en la puerta, volverás a entrar al minijuego al instante.
-            // Así que vamos a restarle un poquito a la 'Y' para que aparezcas "un paso atrás" (fuera de la puerta).
+            // --- CHIVATO 1 ---
+            Debug.Log($"[PUERTA] Jugador detectado en: X={x}, Y={y}. Guardando...");
+
             PlayerPrefs.SetFloat("PosicionX", x);
-            PlayerPrefs.SetFloat("PosicionY", y - 1.0f); // <--- Te muevo 1 metro hacia abajo
+            PlayerPrefs.SetFloat("PosicionY", y - 1.5f); // Restamos para no volver a entrar
             PlayerPrefs.SetFloat("PosicionZ", z);
             
-            // Marcamos una casilla para saber que "Venimos del Minijuego"
             PlayerPrefs.SetInt("VieneDelMinijuego", 1);
             PlayerPrefs.Save();
-            // -------------------------------
+
+            // --- CHIVATO 2 ---
+            Debug.Log("[PUERTA] Datos guardados. ¡Cambiando de escena!");
 
             SceneManager.LoadScene(nombreEscenaDestino);
         }
