@@ -1,39 +1,36 @@
 using UnityEngine;
-using System.Collections;
 
 public class ControladorPosicion : MonoBehaviour
 {
-    // Usamos IEnumerator Start para que sea una Corrutina automática
-    IEnumerator Start()
+    void Start()
     {
-        // 1. Preguntamos si venimos del minijuego
-        if (PlayerPrefs.GetInt("VieneDelMinijuego") == 1)
+        // Leemos la bandera
+        int viene = PlayerPrefs.GetInt("VieneDelMinijuego");
+        
+        // --- CHIVATO 3 ---
+        Debug.Log($"[JUGADOR] He nacido. ¿Vengo del minijuego? (1=Sí, 0=No): {viene}");
+
+        if (viene == 1)
         {
             float x = PlayerPrefs.GetFloat("PosicionX");
             float y = PlayerPrefs.GetFloat("PosicionY");
             float z = PlayerPrefs.GetFloat("PosicionZ");
-            
-            Vector3 posicionDestino = new Vector3(x, y, z);
-            
-            Debug.Log($"[FUERZA BRUTA] Iniciando teletransporte a: {posicionDestino}");
 
-            // 2. EL TRUCO: Forzamos la posición durante 5 fotogramas seguidos.
-            // Esto vence a cualquier otro script que intente moverte al principio.
-            for (int i = 0; i < 5; i++)
-            {
-                transform.position = posicionDestino;
-                yield return null; // Espera al siguiente fotograma
-            }
-            
-            // 3. Un último ajuste por seguridad después de esperar un poco más
-            yield return new WaitForSeconds(0.1f);
-            transform.position = posicionDestino;
+            // --- CHIVATO 4 ---
+            Debug.Log($"[JUGADOR] Moviéndome a coordenadas guardadas: {x}, {y}, {z}");
 
-            Debug.Log("[FUERZA BRUTA] Posición fijada definitivamente.");
+            transform.position = new Vector3(x, y, z);
 
-            // 4. Borramos la marca
+            // --- CHIVATO 5 ---
+            Debug.Log($"[JUGADOR] Mi posición final es: {transform.position}");
+
             PlayerPrefs.SetInt("VieneDelMinijuego", 0);
             PlayerPrefs.Save();
+        }
+        else
+        {
+            // --- CHIVATO 6 ---
+            Debug.Log("[JUGADOR] No vengo del minijuego. Me quedo donde me ponga Unity.");
         }
     }
 }

@@ -16399,7 +16399,7 @@ MonoBehaviour:
   textoInstrucciones: {fileID: 152080558}
   panelGameOver: {fileID: 119399651}
   botonInicialGameOver: {fileID: 1604878208}
-  datosVida: {fileID: 11400000, guid: a6d3e5714c0103847ac556e97afebfe1, type: 2}
+  datosVida: {fileID: 0}
   bugAzul: {fileID: 4240769394733909187, guid: 12e94e753fcbfe64d96df5c8028626e7, type: 3}
   bugVerde: {fileID: 4240769394733909187, guid: da2e3d3bfdf3ae742bda67497bc16550,
     type: 3}
@@ -17826,12 +17826,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8171158352695083175}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95e4cc3351a9bc844a5b221f457a3464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vida: {fileID: 11400000, guid: a6d3e5714c0103847ac556e97afebfe1, type: 2}
+  vida: {fileID: 0}
   barra: {fileID: 0}
   danoPorSegundo: 0.1
   colorCompleto: {r: 0, g: 1, b: 0, a: 1}
@@ -17849,7 +17849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fdc87e17ceb38b45abf6b8063b4f96a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  datosVida: {fileID: 11400000, guid: a6d3e5714c0103847ac556e97afebfe1, type: 2}
+  datosVida: {fileID: 11400000, guid: a68a53599fbe08d4281a3e83c1d33420, type: 2}
   tiempoInvencible: 1
   sonidoHerido: {fileID: 8300000, guid: bd4d07c0d8e40864ba86210b985b0038, type: 3}
 --- !u!82 &8171158352695083190

@@ -510,6 +510,7 @@ MonoBehaviour:
   textoResultado: {fileID: 890224830}
   sceneToLoad: 1
   dificultadGlobal: {fileID: 11400000, guid: 390a0264b78753543b1def7ffabd5b71, type: 2}
+  mundoData: {fileID: 11400000, guid: a68a53599fbe08d4281a3e83c1d33420, type: 2}
 --- !u!82 &168654618
 AudioSource:
   m_ObjectHideFlags: 0

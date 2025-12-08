@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class BarraDeVida : MonoBehaviour
 {
-    public VidaData vida; // arrastra aquí el VidaData.asset
+    public MundoData vida; // arrastra aquí el VidaData.asset
     public Image barra;
     public float danoPorSegundo = 2f;
 

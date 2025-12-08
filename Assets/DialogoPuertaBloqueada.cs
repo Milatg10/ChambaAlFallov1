@@ -15,12 +15,8 @@ public class DialogoPuertaBloqueada : MonoBehaviour
     }
 
     void Update()
-    {
-<<<<<<<< HEAD:Assets/DialogoPuertaCerrada.cs
-        if (estoyEnLaPuerta && Input.GetKeyDown(KeyCode.Space) && !EstadoJuego.puzzle1Resuelto) // 
-========
+    {// 
         if (estoyEnLaPuerta && Input.GetKeyDown(KeyCode.Space) && !EstadoJuego.puzzle1Resuelto)
->>>>>>>> rina:Assets/DialogoPuertaBloqueada.cs
         {
             if (Mensaje_Bloqueado == null || !Mensaje_Bloqueado.activeSelf)
             {

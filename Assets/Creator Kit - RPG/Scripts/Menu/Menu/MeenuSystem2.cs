@@ -41,6 +41,9 @@ public class MeenuSystem2 : MonoBehaviour
     [Header("DIFICULTAD GLOBAL")]
     public DificultadData dificultadGlobal;
 
+    [Header("Variables mundo")]
+    public MundoData mundoData;
+
 
     // VARIABLES INTERNAS RULETA
     private bool girando = false;
@@ -109,6 +112,36 @@ public class MeenuSystem2 : MonoBehaviour
         }
         // Guardar dificultad global
         dificultadGlobal.dificultadActual = ValorGanador;
+
+        /// Aplicar configuración según dificultad
+        if (mundoData != null)
+        {
+            switch (dificultadGlobal.dificultadActual)
+            {
+                case 1:
+                    mundoData.tiempoInicio = 18 * 60;
+                    mundoData.tiempoLimite = 24 * 60;
+                    mundoData.objetosMaximos = 3;
+                    break;
+
+                case 2:
+                    mundoData.tiempoInicio = 19 * 60;
+                    mundoData.tiempoLimite = 24 * 60;
+                    mundoData.objetosMaximos = 3;
+                    break;
+
+                case 3:
+                    mundoData.tiempoInicio = 20 * 60;
+                    mundoData.tiempoLimite = 24 * 60;
+                    mundoData.objetosMaximos = 3;
+                    break;
+            }
+
+            // Reset por seguridad
+            mundoData.objetosRecogidos = 0;
+            mundoData.vidaActual = mundoData.vidaMaxima;
+        }
+
 
         // 6. Esperar a que el usuario pulse Espacio
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) );

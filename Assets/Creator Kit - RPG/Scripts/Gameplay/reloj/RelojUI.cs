@@ -24,13 +24,6 @@ public class RelojUI : MonoBehaviour
         {
             temporizador = 0f;
             mundo.tiempoInicio += minutosPorTick;
-
-            // Si se llega al límite → cambiar de escena
-            if (mundo.tiempoInicio >= mundo.tiempoLimite)
-            {
-                mundo.tiempoInicio = mundo.tiempoLimite;
-                CambiarAScenaFinal();
-            }
         }
 
         // --- Actualizar texto ---

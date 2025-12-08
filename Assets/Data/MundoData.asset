@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: MundoData
   m_EditorClassIdentifier: 
   vidaMaxima: 150
-  vidaActual: 0
-  objetosRecogidos: 3
+  vidaActual: 149.89987
+  objetosRecogidos: 0
   objetosMaximos: 3
-  tiempoInicio: 1440
+  tiempoInicio: 0
   tiempoLimite: 1440

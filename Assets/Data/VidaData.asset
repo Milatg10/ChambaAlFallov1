@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: VidaData
   m_EditorClassIdentifier: Assembly-CSharp::VidaData
   vidaMaxima: 100
-  vidaActual: 0.2
+  vidaActual: 100
