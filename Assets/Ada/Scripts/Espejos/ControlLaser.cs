@@ -46,7 +46,7 @@ public class ControlLaser : MonoBehaviour
         // PASO 1: RESETEO 
         if (ultimoObjetivoGolpeado != null)
         {
-            ultimoObjetivoGolpeado.color = Color.white; // Blanco = Color original sin tinte
+            ultimoObjetivoGolpeado.color = Color.white;
             ultimoObjetivoGolpeado = null;
         }
 
@@ -67,21 +67,22 @@ public class ControlLaser : MonoBehaviour
 
             if (impacto.collider != null)
             {
+                if (vitrinaRenderer != null)
+                {
+                    if (spriteVitrinaVacia != null && EstadoJuego.puzzle2Resuelto)
+                    {
+                        vitrinaRenderer.sprite = spriteVitrinaVaciaCerrada; // Cerrada pero vacía
+                    }
+                    else if (spriteVitrinaAbierta != null)
+                    {
+                        vitrinaRenderer.sprite = spriteVitrinaCerrada; // Cerrada con pantalla 
+                    }
+                }
                 lineRenderer.SetPosition(lineRenderer.positionCount - 1, impacto.point);
 
                 if (impacto.collider.CompareTag("Espejo"))
                 {
-                    if (vitrinaRenderer != null)
-                    {
-                        if (spriteVitrinaVacia != null && pantallaRecogida)
-                        {
-                            vitrinaRenderer.sprite = spriteVitrinaVaciaCerrada; // Cerrada pero vacía
-                        }
-                        else if (spriteVitrinaAbierta != null)
-                        {
-                            vitrinaRenderer.sprite = spriteVitrinaCerrada; // Cerrada con pantalla 
-                        }
-                    }
+
                     Vector2 direccionReflejada = Vector2.Reflect(rayo.direction, impacto.normal);
                     // Mantenemos el margen de 0.5f que arreglamos antes
                     rayo = new Ray2D(impacto.point + (direccionReflejada * 0.1f), direccionReflejada);
@@ -102,7 +103,7 @@ public class ControlLaser : MonoBehaviour
                     // 2. ABRIR LA VITRINA 
                     if (vitrinaRenderer != null)
                     {
-                        if (pantallaRecogida && spriteVitrinaVacia != null)
+                        if (EstadoJuego.puzzle2Resuelto && spriteVitrinaVacia != null)
                         {
                             vitrinaRenderer.sprite = spriteVitrinaVacia; // Abierta pero vacía
                         }

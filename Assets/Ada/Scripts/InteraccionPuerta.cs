@@ -11,6 +11,7 @@ public class InteraccionPuerta : MonoBehaviour
 
     [Header("Referencias Puerta")]
     public SpriteRenderer puertaRenderer;
+    public GameObject puertaEscena;
 
 
     void Start()
@@ -26,7 +27,9 @@ public class InteraccionPuerta : MonoBehaviour
             // Cambiar la imagen de la puerta a abierta
             if (puertaRenderer != null)
             {
+                puertaRenderer.enabled = false; // Oculta la puerta visualmente
                 puertaObjeto.SetActive(false); // Desactiva la puerta para "abrirla"
+                                               // puertaEscena.SetActive(true); // Activa la puerta de la escena siguiente
             }
         }
     }
@@ -35,7 +38,7 @@ public class InteraccionPuerta : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
 
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && EstadoJuego.puzzle1Resuelto && puertaRenderer.enabled)
         {
             jugadorCerca = true;
             if (emotePromptUI != null) emotePromptUI.SetActive(true);
