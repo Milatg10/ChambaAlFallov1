@@ -19,6 +19,10 @@ namespace RPGM.UI
         Camera mainCamera;
         GameModel model = Schedule.GetModel<GameModel>();
         SpriteUIElement spriteUIElement;
+
+        public MundoData mundoData;
+
+        Boolean NPC = false;
         public void FocusButton(int direction)
         {
             if (buttonCount > 0)
@@ -72,14 +76,20 @@ namespace RPGM.UI
             {
                 try // Intentamos hacerlo...
                 {
-                    Debug.Log("1. Frase detectada. Buscando contador...");
-                    var contador = FindObjectOfType<ContadorItems>();
                     
-                    if (contador != null) 
+                    Debug.Log("1. Frase detectada. Buscando contador...");
+                    //var contador = FindObjectOfType<MundoData>();
+                    
+                    Debug.Log("Mundo data es " + mundoData.objetosRecogidos);
+                    if (mundoData != null) 
                     {
                         Debug.Log("2. Contador encontrado. Sumando...");
-                        contador.SumarObjeto();
-                        Debug.Log("3. ¡Suma realizada con éxito!");
+                        if(!NPC)
+                        {
+                            mundoData.objetosRecogidos++;
+                            NPC = true;
+                             Debug.Log("3. ¡Suma realizada con éxito!");
+                        }
                     }
                     else
                     {
@@ -106,8 +116,13 @@ namespace RPGM.UI
         {
             if (text.Contains("¿Esto es tuyo?")) 
             {
-                var contador = FindObjectOfType<ContadorItems>();
-                if (contador != null) contador.SumarObjeto();
+                //var contador = FindObjectOfType<MundoData>();
+                
+                Debug.Log("Mundo data es " + mundoData.objetosRecogidos);
+                if (mundoData != null && !NPC) {
+                    mundoData.objetosRecogidos++;
+                    NPC = true;
+                }
             }
 
             UserInterfaceAudio.OnShowDialog();
@@ -124,8 +139,13 @@ namespace RPGM.UI
         {   
             if (text.Contains("¿Esto es tuyo?")) 
             {
-                var contador = FindObjectOfType<ContadorItems>();
-                if (contador != null) contador.SumarObjeto();
+                
+                //var contador = FindObjectOfType<MundoData>();
+                Debug.Log("Mundo data es " + mundoData.objetosRecogidos);
+                if (mundoData != null && !NPC) {
+                    mundoData.objetosRecogidos++;
+                    NPC = true;
+                }
             }
 
             UserInterfaceAudio.OnShowDialog();

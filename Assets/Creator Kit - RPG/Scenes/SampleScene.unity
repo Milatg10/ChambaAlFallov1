@@ -32481,10 +32481,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 723010661}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85c0a0eda9440c041ae2a7cb284f51cd, type: 3}
+  m_Script: {fileID: 11500000, guid: fd19ea64a34bbf54088a4d228b940de3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptContador: {fileID: 0}
+  scriptContador: {fileID: 11400000, guid: a68a53599fbe08d4281a3e83c1d33420, type: 2}
   objetosNecesarios: 2
 --- !u!61 &723010663
 BoxCollider2D:
@@ -65382,6 +65382,7 @@ MonoBehaviour:
   Pantalla_carga: {fileID: 1922076186}
   nombreEscenaDestino: Minijuego_Mila
   objetosNecesarios: 1
+  mundoData: {fileID: 11400000, guid: a68a53599fbe08d4281a3e83c1d33420, type: 2}
 --- !u!1001 &1756049569
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67967,6 +67968,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: DialogController
       objectReference: {fileID: 0}
+    - target: {fileID: 4429411697731864420, guid: ab3f7178010354d87a5016c7d6b23a5a,
+        type: 3}
+      propertyPath: mundoData
+      value: 
+      objectReference: {fileID: 11400000, guid: a68a53599fbe08d4281a3e83c1d33420,
+        type: 2}
     m_RemovedComponents:
     - {fileID: 1057964450494933678, guid: ab3f7178010354d87a5016c7d6b23a5a, type: 3}
     - {fileID: 1057964449414330145, guid: ab3f7178010354d87a5016c7d6b23a5a, type: 3}

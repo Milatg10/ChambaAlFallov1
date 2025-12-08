@@ -13,6 +13,7 @@ public class Puerta_Casa : MonoBehaviour
     public string nombreEscenaDestino;    // Nombre exacto de la escena a cargar
     public int objetosNecesarios = 1;     // Cuántos objetos necesitas (1)
 
+    public MundoData mundoData;                    // Tu script de contador global
     private bool estoyEnLaPuerta = false;
 
     void Start()
@@ -37,15 +38,12 @@ public class Puerta_Casa : MonoBehaviour
 
     void IntentarEntrar()
     {
-        // 1. Buscamos tu contador
-        var contador = FindObjectOfType<ContadorItems>();
 
-        if (contador != null)
+        if (mundoData != null)
         {
-            Debug.Log("Tienes " + contador.cantidadActual + " objetos.");
-
+            Debug.Log("Tienes " + mundoData.objetosRecogidos + " objetos.");
             // 2. DECISIÓN AUTOMÁTICA
-            if (contador.cantidadActual >= objetosNecesarios)
+            if (mundoData.objetosRecogidos >= objetosNecesarios)
             {
                 // TIENES EL OBJETO -> ¡ADENTRO!
                 Debug.Log("¡Puerta abierta! Entrando...");
