@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5b62047d4f775394489241ad96b141db
+guid: d45f0dd3617285f48be56965397827ee
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,8 +47,8 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 60
+  spriteBorder: {x: 351, y: 223, z: 240, w: 140}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -108,12 +108,12 @@ TextureImporter:
       name: livingroom_LRK_0
       rect:
         serializedVersion: 2
-        x: 145
-        y: 43
-        width: 64
-        height: 39
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 352
+        y: 223
+        width: 33
+        height: 51
+      alignment: 9
+      pivot: {x: 5.4719305, y: 6.6380124}
       border: {x: 33, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -129,7 +129,7 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []

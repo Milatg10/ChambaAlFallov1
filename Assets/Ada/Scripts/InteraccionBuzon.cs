@@ -8,6 +8,7 @@ public class InteraccionBuzon : MonoBehaviour
 
     [Header("Configuración de Escena")]
     public string nombreEscenaPuzle1 = "EscenaPuzleBloques";
+    public LevelLoader Pantalla_carga;   // Tu objeto "SYSTEM_LoadingScreen" (o donde esté el LevelLoader)
 
     private bool jugadorCerca = false;
 
@@ -52,7 +53,6 @@ public class InteraccionBuzon : MonoBehaviour
 
     private void EntrarAlPuzle()
     {
-        Debug.Log("Cargando Puzle 1...");
-        SceneManager.LoadScene(nombreEscenaPuzle1);
+        Pantalla_carga.CargarNivel(nombreEscenaPuzle1);
     }
 }

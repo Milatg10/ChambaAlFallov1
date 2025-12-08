@@ -7,13 +7,15 @@ public class CambioDeEscena : MonoBehaviour
 
     public float posX, posY;
 
+    public LevelLoader Pantalla_carga;   // Tu objeto "SYSTEM_LoadingScreen" (o donde esté el LevelLoader)
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            SceneManager.LoadScene(nombreEscenaDestino);
             EstadoJuego.hayPosicionGuardada = true;
             EstadoJuego.posicionAlVolver = new Vector3(posX, posY, 0f);
+            Pantalla_carga.CargarNivel(nombreEscenaDestino);
         }
     }
 }

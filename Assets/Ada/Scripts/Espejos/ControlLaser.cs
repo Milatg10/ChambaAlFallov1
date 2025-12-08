@@ -16,6 +16,10 @@ public class ControlLaser : MonoBehaviour
     public LineRenderer lineRenderer;
     public Transform puntoDisparo;
 
+    [Header("Sonidos")]
+    public AudioSource altavoz;
+    public AudioClip sonidoRecoger;
+
     // VARIABLE DE COLOR (Puedes cambiarla en el inspector si quieres otro tono)
     public Color colorVictoria = Color.green;
 
@@ -24,6 +28,7 @@ public class ControlLaser : MonoBehaviour
 
     // Guardará la bola que coloreamos en el frame anterior
     private SpriteRenderer ultimoObjetivoGolpeado;
+    private bool yaReproducido = false;
 
     [Header("Configuración Vitrina (Puerta)")]
     public SpriteRenderer vitrinaRenderer;
@@ -33,6 +38,7 @@ public class ControlLaser : MonoBehaviour
     public Sprite spriteVitrinaVacia;     // Imagen de la vitrina sin pantalla abierta
 
     public Sprite spriteVitrinaVaciaCerrada; // Imagen de la vitrina sin pantalla cerrada
+
 
     void Update()
     {
@@ -110,6 +116,12 @@ public class ControlLaser : MonoBehaviour
                         else if (spriteVitrinaAbierta != null)
                         {
                             vitrinaRenderer.sprite = spriteVitrinaAbierta; // Abierta con pantalla
+                            if (altavoz != null && sonidoRecoger != null && !yaReproducido)
+                            {
+                                altavoz.PlayOneShot(sonidoRecoger);
+                                yaReproducido = true;
+                            }
+
                         }
                     }
                 }

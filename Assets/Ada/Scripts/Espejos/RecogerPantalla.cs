@@ -25,6 +25,7 @@ public class RecogerPantalla : MonoBehaviour
     {
         ControlLaser.pantallaRecogida = true;
         EstadoJuego.puzzle2Resuelto = true;
+
         StartCoroutine(MostrarYEsconder());
     }
 
