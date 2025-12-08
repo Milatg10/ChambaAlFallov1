@@ -1,55 +1,67 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro; // Necesario para modificar el texto
+using TMPro;
 
 public class ContadorItems : MonoBehaviour
 {
     [Header("Configuración")]
-    public TextMeshProUGUI textoUI;   // Arrastra aquí el texto de la pantalla
-    public int totalAEncontrar = 3;   // Cuántos hay en total (3)
-    
-    public int cantidadActual = 0;   // Empezamos en 0
-    public ContadorData datosContador;
+    public TextMeshProUGUI textoUI;
+    public int totalAEncontrar = 3;
+
+    public ContadorData datosContador; // Tu variable global
     private bool NPC = false;
+    public int cantidadActual
+    {
+        get { return datosContador != null ? datosContador.cantidadObjetos : 0; }
+    }
+    // ----------------------------
+
+    private int ultimoValorConocido = -1;
 
     void Start()
     {
-        ActualizarMarcador(); // Para que ponga "0 / 3" al empezar
-    }
-
-    // Esta función la llamaremos cuando toques un objeto
-    public void SumarObjeto()
-    {   
-        if (NPC) return;
-        else
-        {
-            cantidadActual++; // Sumamos 1
-            datosContador.cantidadObjetos = cantidadActual;
-        }
-        
-        // Que no se pase del tope
-        if (cantidadActual > totalAEncontrar) 
-            cantidadActual = totalAEncontrar;
+        if (datosContador != null)
+            ultimoValorConocido = datosContador.cantidadObjetos;
 
         ActualizarMarcador();
+    }
 
-        // ¿Ganaste?
-        if (cantidadActual == totalAEncontrar)
+    void Update()
+    {
+        // Si el dato global cambia (porque lo tocó un compañero), actualizamos la UI
+        if (datosContador != null && datosContador.cantidadObjetos != ultimoValorConocido)
+        {
+            ultimoValorConocido = datosContador.cantidadObjetos;
+            VerificarEventos();
+            ActualizarMarcador();
+        }
+    }
+
+    public void SumarObjeto()
+    {
+        if (NPC) return;
+
+        if (datosContador != null)
+        {
+            datosContador.cantidadObjetos++;
+
+            if (datosContador.cantidadObjetos > totalAEncontrar)
+                datosContador.cantidadObjetos = totalAEncontrar;
+        }
+    }
+
+    void VerificarEventos()
+    {
+        if (datosContador.cantidadObjetos >= 1) NPC = true;
+
+        if (datosContador.cantidadObjetos == totalAEncontrar)
         {
             Debug.Log("¡TODOS ENCONTRADOS!");
-            // Aquí puedes activar una puerta, un sonido, etc.
         }
-
-        if(cantidadActual == 1)
-        {
-            NPC = true;
-        }
-
     }
 
     void ActualizarMarcador()
     {
-        textoUI.text = cantidadActual + " / " + totalAEncontrar;
+        if (datosContador != null)
+            textoUI.text = datosContador.cantidadObjetos + " / " + totalAEncontrar;
     }
 }
