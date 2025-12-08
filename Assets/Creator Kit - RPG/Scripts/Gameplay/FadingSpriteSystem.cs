@@ -12,6 +12,7 @@ namespace RPGM.Gameplay
         {
             foreach (var c in FadingSprite.Instances)
             {
+                if (c == null) continue;
                 if (c.gameObject.activeSelf)
                 {
                     c.alpha = Mathf.SmoothDamp(c.alpha, c.targetAlpha, ref c.velocity, 0.1f, 1f);

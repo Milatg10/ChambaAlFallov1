@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Character
+  - Bug
+  - Weapon
+  - BalaEnemiga
+  - Objetivo
+  - Espejo
+  - Vitrina
   layers:
   - Default
   - TransparentFX
@@ -11,7 +18,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Reflectores
   - 
   - Collectable
   - 
@@ -40,4 +47,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: buzon
+    uniqueID: 2009359655
     locked: 0
