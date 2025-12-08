@@ -12,7 +12,6 @@ public class MetaPuzle : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             EstadoJuego.puzzle1Resuelto = true;
-            SceneManager.LoadScene(nombreEscenaJuego);
             EstadoJuego.hayPosicionGuardada = true;
             EstadoJuego.posicionAlVolver = new Vector3(-5.69f, 8.72f, 0);
             Pantalla_carga.CargarNivel(nombreEscenaJuego);

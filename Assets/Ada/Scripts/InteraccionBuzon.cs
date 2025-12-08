@@ -53,6 +53,7 @@ public class InteraccionBuzon : MonoBehaviour
 
     private void EntrarAlPuzle()
     {
+
         Pantalla_carga.CargarNivel(nombreEscenaPuzle1);
     }
 }
