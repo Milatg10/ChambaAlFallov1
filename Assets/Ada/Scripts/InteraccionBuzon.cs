@@ -1,16 +1,15 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // Necesario para cambiar de escena
+using UnityEngine.SceneManagement;
 
 public class InteraccionBuzon : MonoBehaviour
 {
     [Header("Configuración UI")]
-    public GameObject emotePromptUI; // Arrastra aquí el GameObject de la UI (el emote)
+    public GameObject emotePromptUI;
 
     [Header("Configuración de Escena")]
-    public string nombreEscenaPuzle1 = "EscenaPuzleBloques"; // El nombre exacto de tu escena del puzle 1
+    public string nombreEscenaPuzle1 = "EscenaPuzleBloques";
 
     private bool jugadorCerca = false;
-    private bool puzleYaResuelto = false; // Para evitar que se repita si vuelves a esta escena
 
     void Start()
     {
@@ -24,7 +23,7 @@ public class InteraccionBuzon : MonoBehaviour
     void Update()
     {
         // Si el jugador está cerca, no ha resuelto el puzle y pulsa Espacio
-        if (jugadorCerca && !puzleYaResuelto && Input.GetKeyDown(KeyCode.Space))
+        if (jugadorCerca && !EstadoJuego.puzzle1Resuelto && Input.GetKeyDown(KeyCode.Space))
         {
             EntrarAlPuzle();
         }
@@ -33,8 +32,7 @@ public class InteraccionBuzon : MonoBehaviour
     // Detecta cuando el jugador entra en el área del Trigger
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Algo tocó el buzón: " + other.name);
-        if (other.CompareTag("Player") && !puzleYaResuelto)
+        if (other.CompareTag("Player") && !EstadoJuego.puzzle1Resuelto)
         {
             jugadorCerca = true;
             if (emotePromptUI != null) emotePromptUI.SetActive(true);
