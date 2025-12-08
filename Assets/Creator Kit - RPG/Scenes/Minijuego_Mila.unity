@@ -16399,7 +16399,7 @@ MonoBehaviour:
   textoInstrucciones: {fileID: 152080558}
   panelGameOver: {fileID: 119399651}
   botonInicialGameOver: {fileID: 1604878208}
-  datosVida: {fileID: 0}
+  datosVida: {fileID: 11400000, guid: a68a53599fbe08d4281a3e83c1d33420, type: 2}
   bugAzul: {fileID: 4240769394733909187, guid: 12e94e753fcbfe64d96df5c8028626e7, type: 3}
   bugVerde: {fileID: 4240769394733909187, guid: da2e3d3bfdf3ae742bda67497bc16550,
     type: 3}

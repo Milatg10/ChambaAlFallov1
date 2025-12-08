@@ -1,34 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; // Necesario para el SceneManager por si falla el LevelLoader
 
 public class Puerta_Casa : MonoBehaviour
 {
-    [Header("1. UI - Arrastra tus objetos")]
-    public GameObject Aviso_Espacio;      // El sprite de la tecla Espacio
-    public GameObject Mensaje_Bloqueado;  // El Panel/Texto que dice "Necesitas el objeto"
+    [Header("1. Datos Globales")]
+    public MundoData datosMundo; // Arrastra aquí tu ScriptableObject o componente MundoData
 
-    [Header("2. Configuración")]
-    public LevelLoader Pantalla_carga;    // Tu script de carga
-    public string nombreEscenaDestino;    // Nombre exacto de la escena a cargar
-    public int objetosNecesarios = 1;     // Cuántos objetos necesitas (1)
+    [Header("2. UI - Interfaz")]
+    public GameObject Aviso_Espacio;      // El sprite/texto de "Presiona Espacio"
+    public GameObject Mensaje_Bloqueado;  // El panel de "Te faltan objetos"
 
-    public MundoData mundoData;                    // Tu script de contador global
+    [Header("3. Configuración de Carga")]
+    public LevelLoader Pantalla_carga;    // Tu script de transición (opcional)
+    public string nombreEscenaDestino;    // Nombre exacto de la escena a la que vas
+    public int objetosNecesarios = 1;     // Cantidad requerida para entrar
+
+    [Header("4. Sistema de Guardado (Retorno)")]
+    [Tooltip("Punto donde aparecerá el jugador al volver. Si se deja vacío, usa la posición actual.")]
+    public Transform puntoDeRetorno;      
+
+    // Variables internas
     private bool estoyEnLaPuerta = false;
 
     void Start()
     {
-        // Al empezar, ocultamos los avisos para que no molesten
+        // Al empezar, ocultamos los avisos para asegurar que la pantalla esté limpia
         if(Aviso_Espacio != null) Aviso_Espacio.SetActive(false);
         if(Mensaje_Bloqueado != null) Mensaje_Bloqueado.SetActive(false);
     }
 
     void Update()
     {   
-        // Si estoy en la puerta y pulso Espacio...
+        // Si el jugador está en el trigger y pulsa Espacio
         if (estoyEnLaPuerta && Input.GetKeyDown(KeyCode.Space))
         {
-            // ...y no se está mostrando ya el mensaje de error...
+            // Solo intentamos entrar si no se está mostrando ya el mensaje de error
             if (Mensaje_Bloqueado == null || !Mensaje_Bloqueado.activeSelf)
             {
                 IntentarEntrar();
@@ -38,60 +46,95 @@ public class Puerta_Casa : MonoBehaviour
 
     void IntentarEntrar()
     {
-
-        if (mundoData != null)
+        // 1. Verificación de seguridad: ¿Existe el archivo de datos?
+        if (datosMundo != null)
         {
-            Debug.Log("Tienes " + mundoData.objetosRecogidos + " objetos.");
-            // 2. DECISIÓN AUTOMÁTICA
-            if (mundoData.objetosRecogidos >= objetosNecesarios)
+            Debug.Log("Tienes " + datosMundo.objetosRecogidos + " objetos recogidos. Necesitas: " + objetosNecesarios);
+
+            // 2. COMPROBACIÓN: ¿Tienes suficientes objetos?
+            if (datosMundo.objetosRecogidos >= objetosNecesarios)
             {
-                // TIENES EL OBJETO -> ¡ADENTRO!
-                Debug.Log("¡Puerta abierta! Entrando...");
+                // --- APROBADO: TIENES LOS OBJETOS ---
+                Debug.Log("¡Condición cumplida! Abriendo puerta...");
+
+                // ========================================================
+                // CÓDIGO DE GUARDADO (PLAYERPREFS)
+                // Guardamos la posición para saber dónde volver después
+                // ========================================================
+                if (puntoDeRetorno != null)
+                {
+                    PlayerPrefs.SetFloat("PosicionX", puntoDeRetorno.position.x);
+                    PlayerPrefs.SetFloat("PosicionY", puntoDeRetorno.position.y);
+                    PlayerPrefs.SetFloat("PosicionZ", puntoDeRetorno.position.z);
+                }
+                else
+                {
+                    // Si no definiste un punto manual, usamos la posición actual del jugador
+                    GameObject jugador = GameObject.FindGameObjectWithTag("Player");
+                    if (jugador != null)
+                    {
+                        PlayerPrefs.SetFloat("PosicionX", jugador.transform.position.x);
+                        // Restamos un poco a la Y para evitar que aparezca flotando o atascado si es necesario
+                        PlayerPrefs.SetFloat("PosicionY", jugador.transform.position.y); 
+                        PlayerPrefs.SetFloat("PosicionZ", jugador.transform.position.z);
+                    }
+                }
+
+                // Marcamos que venimos de una puerta/minijuego para la lógica de la siguiente escena
+                PlayerPrefs.SetInt("VieneDelMinijuego", 1);
+                PlayerPrefs.Save(); // Forzamos el guardado
+                // ========================================================
+
+                // 3. CARGAR NIVEL
                 if(Pantalla_carga != null)
                 {
                     Pantalla_carga.CargarNivel(nombreEscenaDestino);
                 }
+                else
+                {
+                    // Fallback: Si no hay LevelLoader, usamos la carga estándar de Unity
+                    SceneManager.LoadScene(nombreEscenaDestino);
+                }
             }
             else
             {
-                // NO TIENES EL OBJETO -> Muestra mensaje de error
-                Debug.Log("¡Cerrado! Faltan objetos.");
+                // --- DENEGADO: FALTAN OBJETOS ---
+                Debug.Log("¡Puerta cerrada! Faltan objetos.");
                 StartCoroutine(MostrarAvisoBloqueado());
             }
         }
         else
         {
-            Debug.LogError("¡ERROR! No encuentro el script 'ContadorItems' en la escena 'GameManager'.");
+            Debug.LogError("¡ERROR CRÍTICO! No has asignado el 'MundoData' en el inspector de esta puerta.");
         }
     }
 
     IEnumerator MostrarAvisoBloqueado()
     {   
-        Debug.Log("Mostrando aviso de puerta bloqueada.");
-        
-        // Ocultamos la barra espacio un momento
+        // 1. Ocultamos la indicación de "Espacio" temporalmente
         if(Aviso_Espacio != null) Aviso_Espacio.SetActive(false);
         
-        // Mostramos el mensaje de "Necesitas el objeto"
+        // 2. Mostramos el mensaje de "Bloqueado"
         if(Mensaje_Bloqueado != null) Mensaje_Bloqueado.SetActive(true);
         
-        // Esperamos 2 segundos leyendo el mensaje
+        // 3. Esperamos 2 segundos
         yield return new WaitForSeconds(2f); 
         
-        // Lo quitamos
+        // 4. Revertimos los cambios
         if(Mensaje_Bloqueado != null) Mensaje_Bloqueado.SetActive(false);
-
-        // Si seguimos en la puerta, vuelve a salir la barra espacio
+        
+        // Si el jugador no se ha ido, volvemos a mostrar la opción de pulsar espacio
         if (estoyEnLaPuerta && Aviso_Espacio != null) Aviso_Espacio.SetActive(true);
     }
 
-    // --- DETECTAR JUGADOR (Triggers) ---
+    // --- DETECCIÓN DE COLISIONES ---
 
     private void OnTriggerEnter2D(Collider2D collision)
     {   
-        Debug.Log("¡CHOQUE DETECTADO con: " + collision.name + "!");
-        if (collision.CompareTag("Player"))
+        // Aceptamos tanto "Player" como "Character" para evitar errores si cambiaste el Tag
+        if (collision.CompareTag("Player") || collision.CompareTag("Character"))
         {
+            Debug.Log("Jugador cerca de la puerta: " + collision.name);
             estoyEnLaPuerta = true;
             if(Aviso_Espacio != null) Aviso_Espacio.SetActive(true);
         }
@@ -99,10 +142,11 @@ public class Puerta_Casa : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") || collision.CompareTag("Character"))
         {
             estoyEnLaPuerta = false;
-            // Apagamos todo al alejarnos
+            
+            // Apagamos toda la UI al alejarse
             if(Aviso_Espacio != null) Aviso_Espacio.SetActive(false);
             if(Mensaje_Bloqueado != null) Mensaje_Bloqueado.SetActive(false);
         }

@@ -128,20 +128,20 @@ public class GameManagerMila : MonoBehaviour
         juegoTerminado = true;
         ReproducirSonido(sonidoGameOver);
 
-        if (panelGameOver != null) 
-        {
-            panelGameOver.SetActive(true);
+        // if (panelGameOver != null) 
+        // {
+        //     panelGameOver.SetActive(true);
 
-            // 2. ACTIVAR NAVEGACIÓN POR TECLADO
-            // Esto le dice a Unity: "Pon el cursor en este botón YA"
-            if (botonInicialGameOver != null)
-            {
-                // Limpiamos selección anterior
-                EventSystem.current.SetSelectedGameObject(null);
-                // Seleccionamos el botón nuevo
-                EventSystem.current.SetSelectedGameObject(botonInicialGameOver);
-            }
-        }
+        //     // 2. ACTIVAR NAVEGACIÓN POR TECLADO
+        //     // Esto le dice a Unity: "Pon el cursor en este botón YA"
+        //     if (botonInicialGameOver != null)
+        //     {
+        //         // Limpiamos selección anterior
+        //         EventSystem.current.SetSelectedGameObject(null);
+        //         // Seleccionamos el botón nuevo
+        //         EventSystem.current.SetSelectedGameObject(botonInicialGameOver);
+        //     }
+        // }
     }
 
     public void BotonReintentar()
@@ -185,6 +185,7 @@ public class GameManagerMila : MonoBehaviour
     {
         StopAllCoroutines();
         ReproducirSonido(sonidoCoin);
+        datosVida.objetosRecogidos++;
         textoFase.color = Color.green;
         textoFase.text = "¡ERRORES DEPURADOS!";
         textoDialogo.text = "Has recuperado el control del sistema.";
