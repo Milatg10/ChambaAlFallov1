@@ -2,25 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogoPuertaCerrada : MonoBehaviour
+public class DialogoPuertaBloqueada : MonoBehaviour
 {
     [Header("1. UI - Arrastra tus objetos")]
-    public GameObject Aviso_Espacio;      // El sprite de la tecla Espacio
-    public GameObject Mensaje_Bloqueado;  // El Panel/Texto que dice "Necesitas el objeto"
+    public GameObject Mensaje_Bloqueado;
     private bool estoyEnLaPuerta = false;
 
     void Start()
     {
-        if (Aviso_Espacio != null) Aviso_Espacio.SetActive(false);
         if (Mensaje_Bloqueado != null) Mensaje_Bloqueado.SetActive(false);
+        estoyEnLaPuerta = false;
     }
 
     void Update()
     {
-        // Si estoy en la puerta y pulso Espacio...
-        if (estoyEnLaPuerta && Input.GetKeyDown(KeyCode.Space))
+        if (estoyEnLaPuerta && Input.GetKeyDown(KeyCode.Space) && !EstadoJuego.puzzle1Resuelto)
         {
-            // ...y no se está mostrando ya el mensaje de error...
             if (Mensaje_Bloqueado == null || !Mensaje_Bloqueado.activeSelf)
             {
                 StartCoroutine(MostrarAvisoBloqueado());
@@ -31,11 +28,6 @@ public class DialogoPuertaCerrada : MonoBehaviour
 
     IEnumerator MostrarAvisoBloqueado()
     {
-        Debug.Log("Mostrando aviso de puerta bloqueada.");
-
-        // Ocultamos la barra espacio un momento
-        if (Aviso_Espacio != null) Aviso_Espacio.SetActive(false);
-
         // Mostramos el mensaje de "Necesitas el objeto"
         if (Mensaje_Bloqueado != null) Mensaje_Bloqueado.SetActive(true);
 
@@ -44,19 +36,16 @@ public class DialogoPuertaCerrada : MonoBehaviour
 
         // Lo quitamos
         if (Mensaje_Bloqueado != null) Mensaje_Bloqueado.SetActive(false);
-
-        // Si seguimos en la puerta, vuelve a salir la barra espacio
-        if (estoyEnLaPuerta && Aviso_Espacio != null) Aviso_Espacio.SetActive(true);
     }
 
     // --- DETECTAR JUGADOR (Triggers) ---
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("Entró: " + collision.name);
         if (collision.CompareTag("Player"))
         {
             estoyEnLaPuerta = true;
-            if (Aviso_Espacio != null) Aviso_Espacio.SetActive(true);
         }
     }
 
@@ -66,7 +55,6 @@ public class DialogoPuertaCerrada : MonoBehaviour
         {
             estoyEnLaPuerta = false;
             // Apagamos todo al alejarnos
-            if (Aviso_Espacio != null) Aviso_Espacio.SetActive(false);
             if (Mensaje_Bloqueado != null) Mensaje_Bloqueado.SetActive(false);
         }
     }
