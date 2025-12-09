@@ -1,12 +1,11 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // Necesario para cargar escenas
+using UnityEngine.SceneManagement; 
 
 public class MenuPuzleBloques : MonoBehaviour
 {
     [Header("Nombre de la escena a la que volver")]
     public string escenaMundo = "SampleScene";
-    public LevelLoader Pantalla_carga;   // Tu objeto "SYSTEM_LoadingScreen" (o donde esté el LevelLoader)
-
+    public LevelLoader Pantalla_carga; 
 
     public void ReiniciarNivel()
     {
@@ -17,8 +16,18 @@ public class MenuPuzleBloques : MonoBehaviour
     public void SalirAlMundo()
     {
         Debug.Log("Saliendo del puzle...");
-        EstadoJuego.hayPosicionGuardada = true;
-        EstadoJuego.posicionAlVolver = new Vector3(-5.69f, 8.72f, 0);
+        Debug.Log("Guardando posición de retorno (Tipo 2)...");
+
+        // 1. GUARDADO EN PLAYERPREFS (Coordenadas fijas de retorno)
+        PlayerPrefs.SetFloat("PosicionX", -5.69f);
+        PlayerPrefs.SetFloat("PosicionY", 8.72f);
+        PlayerPrefs.SetFloat("PosicionZ", 0f);
+
+        // 2. Establecemos la bandera en 2
+        PlayerPrefs.SetInt("VieneDelMinijuego", 2);
+        PlayerPrefs.Save();
+
+        // 3. Cargar
         Pantalla_carga.CargarNivel(escenaMundo);
     }
 }

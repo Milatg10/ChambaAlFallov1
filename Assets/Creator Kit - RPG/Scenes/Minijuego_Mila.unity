@@ -17555,7 +17555,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mundo: {fileID: 11400000, guid: a68a53599fbe08d4281a3e83c1d33420, type: 2}
   textoReloj: {fileID: 7039719531214979402}
-  segundosPorAvance: 1
+  segundosPorAvance: 5
   minutosPorTick: 5
 --- !u!114 &7039719531679502785
 MonoBehaviour:

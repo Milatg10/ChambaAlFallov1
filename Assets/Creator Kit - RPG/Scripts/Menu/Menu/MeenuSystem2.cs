@@ -101,7 +101,7 @@ public class MeenuSystem2 : MonoBehaviour
                 textoResultado.color = Color.yellow;  // AMARILLO
                 break;
 
-            default:
+            case 3:
                 textoResultado.text =
                     "Esta noche hay una entrega que acabar y LA COSA VA MUY MAL :(.\n" +
                     "Has llegado al piso tarde, has estado 30 MINUTOS BUSCANDO DONDE APARCAR.\n" +
@@ -142,7 +142,8 @@ public class MeenuSystem2 : MonoBehaviour
             mundoData.vidaActual = mundoData.vidaMaxima;
         }
 
-
+        PlayerPrefs.SetInt("VieneDelMinijuego", 0);
+        PlayerPrefs.Save();
         // 6. Esperar a que el usuario pulse Espacio
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) );
 

@@ -4,33 +4,44 @@ public class ControladorPosicion : MonoBehaviour
 {
     void Start()
     {
-        // Leemos la bandera
+        // 1. Leemos la bandera
         int viene = PlayerPrefs.GetInt("VieneDelMinijuego");
         
-        // --- CHIVATO 3 ---
-        Debug.Log($"[JUGADOR] He nacido. ¿Vengo del minijuego? (1=Sí, 0=No): {viene}");
+        Debug.Log($"[CONTROLADOR] He nacido. ¿Vengo de algún sitio? (0=No, 1=Puerta, 2=Puzle): {viene}");
 
+        // CASO 1: Vengo de una puerta normal
         if (viene == 1)
         {
-            float x = PlayerPrefs.GetFloat("PosicionX");
-            float y = PlayerPrefs.GetFloat("PosicionY");
-            float z = PlayerPrefs.GetFloat("PosicionZ");
+            CargarPosicion();
+        }
+        // CASO 2: Vengo del Puzle (Tu nueva condición)
+        else if(viene == 2)
+        {
+            Debug.Log("[CONTROLADOR] ¡Vengo del Puzle! Aplicando lógica especial si fuera necesaria.");
+            CargarPosicion(); 
+        }
+        // CASO 0: Inicio normal del juego
+        else
+        {
+            Debug.Log("[CONTROLADOR] Inicio normal o sin datos guardados.");
+        }
 
-            // --- CHIVATO 4 ---
-            Debug.Log($"[JUGADOR] Moviéndome a coordenadas guardadas: {x}, {y}, {z}");
-
-            transform.position = new Vector3(x, y, z);
-
-            // --- CHIVATO 5 ---
-            Debug.Log($"[JUGADOR] Mi posición final es: {transform.position}");
-
+        // Importante: Reseteamos la variable para que si recargas la escena normal no te teletransporte
+        if (viene != 0)
+        {
             PlayerPrefs.SetInt("VieneDelMinijuego", 0);
             PlayerPrefs.Save();
         }
-        else
-        {
-            // --- CHIVATO 6 ---
-            Debug.Log("[JUGADOR] No vengo del minijuego. Me quedo donde me ponga Unity.");
-        }
+    }
+
+    // Función auxiliar para no repetir código
+    void CargarPosicion()
+    {
+        float x = PlayerPrefs.GetFloat("PosicionX");
+        float y = PlayerPrefs.GetFloat("PosicionY");
+        float z = PlayerPrefs.GetFloat("PosicionZ");
+
+        Debug.Log($"[CONTROLADOR] Moviéndome a coordenadas guardadas: {x}, {y}, {z}");
+        transform.position = new Vector3(x, y, z);
     }
 }
