@@ -74,7 +74,7 @@ Unity Hub te permite instalar y administrar versiones del motor fácilmente. :co
 
 ## 🎮 Controles
 
-| Acción        | Teclado / Gamepad |
+| Acción        | Teclado |
 |---------------|-------------------|
 | Moverse       | `🡰`, `🡱`, `🡳`, `🡲` |
 | Interactuar   | `Space  `          |
