@@ -5,18 +5,6 @@
 
 > **Chamba al Fallo** es un RPG inversivo que mezcla acción, exploración y puzzles, donde tendrás que salvar tu trabajo universitario antes de que se acabe el tiempo… ¡o fracasar en el intento!
 
-## 📋 Tabla de Contenidos
-
-1. [📌 Sobre el Proyecto](#sobre-el-proyecto)  
-2. [✨ Historia](#✨-historia)  
-3. [🎯 Características](#✨-características)  
-4. [⚙️ Instalación y Configuración](#⚙️-instalación-y-configuración)  
-5. [🎮 Controles](#🎮-controles)  
-6. [📂 Estructura del Proyecto](#📂-estructura-del-proyecto)  
-7. [🛠️ Tecnologías y Plugins](#🛠️-tecnologías-y-plugins)  
-8. [👥 Créditos y Contribuidores](#👥-créditos-y-contribuidores)  
-9. [📄 Licencia](#📄-licencia)
-
 ---
 
 ## 📌 Sobre el Proyecto
