@@ -76,7 +76,7 @@ Unity Hub te permite instalar y administrar versiones del motor fácilmente. :co
 
 | Acción        | Teclado / Gamepad |
 |---------------|-------------------|
-| Moverse       | `W`, `A`, `S`, `D` |
+| Moverse       | `🡰`, `🡱`, `🡳`, `🡲` |
 | Interactuar   | `Space  `          |
 | Menu | `Mouse`             |
 
